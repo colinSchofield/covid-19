@@ -17,6 +17,6 @@ public class Covid19Controller {
     Mono<String> getListOfUsers() {
 
         LOG.debug("Just a quick message for now..");
-        return Mono.just("<h2>Language is a virus from outer space..</h2>");
+        return Mono.just("Language is a virus from outer space..");
     }
 }
