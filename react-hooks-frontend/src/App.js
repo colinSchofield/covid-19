@@ -9,9 +9,15 @@ export default function App() {
     }, [])
 
     const getUserList = () => {
-        fetch('/api/1.0/list/users')
-            .then(response => response.text())
-            .then(message => setMessage(message))
+      const url = "/api/1.0/list/users"
+      const username = "admin"
+      const password = "passwd"
+      let headers = new Headers();
+      headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+
+      fetch(url, { method: "GET", headers: headers })
+        .then(response => response.text())
+        .then(message => setMessage(message))
     }
 
   return (
