@@ -11,7 +11,7 @@ export default function App() {
     const getUserList = () => {
       const url = "/api/1.0/list/users"
       const username = "admin"
-      const password = "passwd"
+      const password = "admin"
       let headers = new Headers();
       headers.append("Authorization", "Basic " + btoa(username + ":" + password));
 
