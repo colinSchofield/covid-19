@@ -1,3 +1,9 @@
+spring:
+  cache:
+    cache-names: rapidApi
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=10m
+
 server:
   port: 8080
 
@@ -11,3 +17,5 @@ covid19:
   admin-access:
     name: admin
     password: admin
+  api-host: covid-193.p.rapidapi.com
+  api-key: cb1f09fd7dmsh35f7dd8afd27dfdp191e0cjsnca765ccf022a

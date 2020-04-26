@@ -1,5 +1,6 @@
 package com.idk.covid19.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,19 +16,19 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Value("${covid19.admin-access.name}")
-    private String name;
+    /** User Role of ADMIN is required to access this Service's API and for maintenance of the application  */
+    public static final String ADMIN = "ADMIN";
 
-    @Value("${covid19.admin-access.password}")
-    private String password;
+    @Autowired
+    private Covid19Properties properties;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .cors().and()
                 .csrf().disable().authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole(ADMIN)
+                .antMatchers("/api/**").hasRole(ADMIN)
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -39,9 +40,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         UserDetails admin =
                 User.withDefaultPasswordEncoder()
-                        .username(name)
-                        .password(password)
-                        .roles("ADMIN")
+                        .username(properties.getAdminAccess().getName())
+                        .password(properties.getAdminAccess().getPassword())
+                        .roles(ADMIN)
                         .build();
 
         return new InMemoryUserDetailsManager(admin);

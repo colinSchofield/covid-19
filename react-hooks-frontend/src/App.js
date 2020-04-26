@@ -1,28 +1,28 @@
 import React from 'react'
 import './css/App.css'
+import { getCovid19Stats } from './utils/api'
+import Table from './components/Table'
 
 export default function App() {
-    const [ message, setMessage ] = React.useState(null)
+  const [ data, setData ] = React.useState(null)
 
-    React.useEffect(() => {
-        getUserList()
-    }, [])
-
-    const getUserList = () => {
-      const url = "/api/1.0/list/users"
-      const username = "admin"
-      const password = "admin"
-      let headers = new Headers();
-      headers.append("Authorization", "Basic " + btoa(username + ":" + password));
-
-      fetch(url, { method: "GET", headers: headers })
-        .then(response => response.text())
-        .then(message => setMessage(message))
-    }
+  React.useEffect(() => {
+    getCovid19Stats()
+      .then((stats) => setData(stats.response))
+      .catch((error) => {
+        console.log("Error was Caught!", error)
+        setData(error.message)
+      })
+  }, [])
 
   return (
     <div className="App">
-      Response: <strong>{message}</strong>
+      {
+        (data === null) ?
+        <strong>Loading...</strong>
+          :
+        <Table stats={data} />
+      }
     </div>
   )
 }
