@@ -1,7 +1,9 @@
 import React from 'react'
-import { Navbar, Nav, Button, Form, FormControl } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
+import TableSearch from './TableSearch'
 
-const NavBar = () => {
+const NavBar = ({tableData, filterTable}) => {
+
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="/">🦠 Covid-19 Daily Statistics 🦠</Navbar.Brand>
@@ -16,10 +18,7 @@ const NavBar = () => {
           <Nav.Link href="/">Sign Up</Nav.Link>
           <Nav.Link href="/">Admin</Nav.Link>
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-success">Search</Button>
-        </Form>
+        <TableSearch tableData={tableData} filterTable={filterTable} />
       </Navbar.Collapse>
     </Navbar>
   )

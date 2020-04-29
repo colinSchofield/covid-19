@@ -1,6 +1,7 @@
 import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+import TableSearch from './TableSearch'
 
 export default function App({stats}) {
 
@@ -69,6 +70,8 @@ export default function App({stats}) {
             columns={ columns }
             defaultSorted={ defaultSorted }
             pagination={ paginationFactory() }
+            striped
+            hover
         />
       </div>
     )
