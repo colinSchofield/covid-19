@@ -2,11 +2,11 @@ import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import TableSearch from './TableSearch'
 
-const NavBar = ({tableData, filterTable}) => {
+const NavBar = () => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="/">🦠 Covid-19 Daily Statistics 🦠</Navbar.Brand>
+      <Navbar.Brand href="/"><span role="img" aria-labelledby="virus">🦠</span> Covid-19 Daily Statistics <span role="img" aria-labelledby="virus">🦠</span></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
@@ -18,7 +18,7 @@ const NavBar = ({tableData, filterTable}) => {
           <Nav.Link href="/">Sign Up</Nav.Link>
           <Nav.Link href="/">Admin</Nav.Link>
         </Nav>
-        <TableSearch tableData={tableData} filterTable={filterTable} />
+        <TableSearch />
       </Navbar.Collapse>
     </Navbar>
   )

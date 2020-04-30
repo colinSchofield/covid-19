@@ -6,21 +6,25 @@ import Home from './components/Home'
 import About from './components/About'
 import SignUp from './components/SignUp'
 import Admin from './components/Admin'
+import { DataProvider } from './context/DataContext'
 
 export default function App() {
-  const [data, setData] = React.useState(null)
+  const [ tableData, setTableData ] = React.useState(null)
+  const tableContext = { tableData: tableData, updateTable: (data) => { setTableData(data) } }
 
   return (
-   <div className="App">
-      <Router>
-        <NavBar tableData={data} filterTable={(data) => setData(data)} />
-        <Switch>
-          <Route exact path='/' render={props => (<Home {...props} updateData={data} updateTable={(data) => setData(data)} />)} />
-          <Route path='/about' component={About} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/admin' component={Admin} />
-        </Switch>
-      </Router>
+    <div className="App">
+      <DataProvider value={tableContext}>
+        <Router>
+          <NavBar />
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/about' component={About} />
+            <Route path='/signup' component={SignUp} />
+            <Route path='/admin' component={Admin} />
+          </Switch>
+        </Router>
+      </DataProvider>
     </div>
   )
 }

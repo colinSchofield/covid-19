@@ -1,35 +1,39 @@
 import React from 'react'
 import { Button, Form, FormControl } from 'react-bootstrap'
+import DataContext from '../context/DataContext'
 
-export default function TableSearch({tableData, filterTable}) {
-  const [ search, setSearch ] = React.useState("")
+export default function TableSearch() {
+  const [ searchField, setSearchField ] = React.useState("")
   const fullTable = React.useRef(null)
   const searchFieldRef = React.useRef()
+  const tableContext = React.useContext(DataContext)
 
   React.useEffect(() => {
 
-    if (fullTable.current === null && tableData !== null) {
-      fullTable.current = tableData
-      searchFieldRef.current.focus()
-    }
+   if (fullTable.current === null && tableContext.tableData !== null) {
+     fullTable.current = tableContext.tableData
+     searchFieldRef.current.disabled = false
+     searchFieldRef.current.focus()
+   }
 
-  }, [ tableData ])
+  }, [ tableContext ])
 
-  function updateSearch(event) {
+  function filterTableBySearchField(event) {
 
-    setSearch(event.target.value)
-    const results = fullTable.current.filter((element) =>
+    setSearchField(event.target.value)
+    const filteredTable = fullTable.current.filter((element) =>
         element.country.toLowerCase().startsWith(event.target.value.toLowerCase()))
-    filterTable(results)
+
+    tableContext.updateTable(filteredTable)
   }
 
   return (
 
     <Form inline>
-      <FormControl type="text"
+      <FormControl type="text" disabled
         placeholder="Country Name" className="mr-sm-2"
-        value={search} onChange={updateSearch} ref={searchFieldRef} />
-      <Button variant="outline-success">Search</Button>
+        value={searchField} onChange={filterTableBySearchField} ref={searchFieldRef} />
+      <Button variant="outline-success" onClick={() => {}}>Search</Button>
     </Form>
   )
 }
