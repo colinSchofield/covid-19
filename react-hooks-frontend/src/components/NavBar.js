@@ -5,9 +5,9 @@ import TableSearch from './TableSearch'
 const NavBar = () => {
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="light" variant="light">
       <Navbar.Brand href="/"><span role="img" aria-labelledby="virus">🦠</span> Covid-19 Daily Statistics <span role="img" aria-labelledby="virus">🦠</span></Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>

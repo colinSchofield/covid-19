@@ -1,8 +1,11 @@
 import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
+import TableDetails from './TableDetails'
 
 export default function App({stats}) {
+  const [detailsView, setDetailsView] = React.useState(false)
+  const [dialogText, setDialogText] = React.useState("")
 
   const columns = [
     {
@@ -59,10 +62,21 @@ export default function App({stats}) {
     }
   ];
 
+  const selectRow = {
+    mode: 'radio',
+    hideSelectColumn: true,
+    clickToSelect: true,
+    onSelect: (row, isSelect, rowIndex, e) => {
+      setDialogText("🇦🇺 " + row.country + " 🇦🇺")
+      setDetailsView(true)
+    }
+  }
+
   return (
 
       <div>
         <BootstrapTable
+            selectRow={ selectRow }
             bootstrap4
             keyField="country"
             data={ stats }
@@ -72,6 +86,7 @@ export default function App({stats}) {
             striped
             hover
         />
+        { detailsView && <TableDetails dialogText={dialogText} /> }
       </div>
     )
 }
