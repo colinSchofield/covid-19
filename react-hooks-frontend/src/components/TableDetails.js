@@ -22,8 +22,8 @@ export default function TableDetails({region}) {
 
   React.useEffect(() => {
 
-    setShow(true)
     setText(region)
+    setShow(true)
     getCovid19Monthly(region)
       .then((stats) => {
         setTableData(stats)
@@ -46,7 +46,7 @@ export default function TableDetails({region}) {
       setText(region + " " + tableData.flag)
       setShow(true)
     }
-  }, [tableData])
+  }, [tableData, region, data])
 
   const data = {
       labels: ["", "", "", "", "", "", ""],

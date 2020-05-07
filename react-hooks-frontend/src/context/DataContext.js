@@ -1,4 +1,4 @@
-/* This Context is used for the Table Data. It is used for keeping in sync the TableSearch and Table components */
+/* This Context is used for the Table Data. It is used for keeping TableSearch and Table components in sync */
 import React from 'react'
 
 const DataContext = React.createContext()

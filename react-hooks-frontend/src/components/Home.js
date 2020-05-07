@@ -20,7 +20,7 @@ export default function Home() {
         console.log("Error was Caught!", exception)
         setError(exception.message)
       })
-  }, [])
+  }, [tableContext])
 
   React.useEffect(() => {
       setData(tableContext.tableData)
@@ -39,7 +39,7 @@ export default function Home() {
       { !data && !error && <p><br/><br/><br/><br/></p> }
       { !data && !error && <Spinner animation="border" variant="success" /> }
 
-      { data && <Table stats={data} /> }
+      { data && <Table data={data} /> }
     </div>
 
   )

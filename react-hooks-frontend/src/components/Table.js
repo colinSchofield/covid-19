@@ -2,10 +2,11 @@ import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import TableDetails from './TableDetails'
-import { detectMobile } from '../utils/mobile'
+import { useWindowDimensions, detectMobileChange } from '../utils/mobileResponsive'
 
-export default function App({stats}) {
-  const [columns, setColumns] = React.useState(detectMobile())
+export default function App({data}) {
+  const { width } = useWindowDimensions()
+  const [columns, setColumns] = React.useState(detectMobileChange())
   const [detailsView, setDetailsView] = React.useState(false)
   const [region, setRegion] = React.useState("")
 
@@ -14,7 +15,7 @@ export default function App({stats}) {
       dataField: 'deaths.total',
       order: 'desc'
     }
-  ];
+  ]
 
   const selectRow = {
     mode: 'radio',
@@ -30,6 +31,10 @@ export default function App({stats}) {
     }
   }
 
+  React.useEffect(() => {
+    setColumns(detectMobileChange())
+  }, [width])
+
   return (
 
       <div>
@@ -37,14 +42,14 @@ export default function App({stats}) {
             selectRow={ selectRow }
             bootstrap4
             keyField="country"
-            data={ stats }
+            data={ data }
             columns={ columns }
             defaultSorted={ defaultSorted }
             pagination={ paginationFactory() }
             striped
             hover
         />
-        { detailsView && <TableDetails region={region} date={new Date().getTime()} /> }
+        { detailsView && <TableDetails region={region} /> }
       </div>
     )
 }

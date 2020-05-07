@@ -1,5 +1,20 @@
-export const detectMobile = () => {
-    return (false) ? columnsMobile : columnsDesktop
+import React from 'react'
+
+const MIN_WIDTH_MOBILE = 760
+
+export const useWindowDimensions = () => {
+  const [ width, setWidth ] = React.useState(window.innerWidth)
+
+  React.useEffect(() => {
+    const resizeEvent = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', resizeEvent)
+  })
+
+  return { width }
+}
+
+export const detectMobileChange = () => {
+    return (window.innerWidth <= MIN_WIDTH_MOBILE) ? columnsMobile : columnsDesktop
 }
 
   const columnsMobile = [
