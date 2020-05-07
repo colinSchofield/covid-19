@@ -20,7 +20,7 @@ export default function Home() {
         console.log("Error was Caught!", exception)
         setError(exception.message)
       })
-  }, [tableContext])
+  }, [])
 
   React.useEffect(() => {
       setData(tableContext.tableData)
