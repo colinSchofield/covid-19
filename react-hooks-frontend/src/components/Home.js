@@ -1,7 +1,6 @@
 import React from 'react'
 import { getCovid19Daily } from '../utils/api'
-import { Spinner } from 'react-bootstrap'
-import { Alert } from 'react-bootstrap'
+import { Spinner, Alert } from 'react-bootstrap'
 import Table from './Table'
 import DataContext from '../context/DataContext'
 
