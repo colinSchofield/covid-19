@@ -46,7 +46,7 @@ export default function TableDetails({region}) {
       setText(region + " " + tableData.flag)
       setShow(true)
     }
-  }, [tableData, region, data])
+  }, [tableData, region])
 
   const data = {
       labels: ["", "", "", "", "", "", ""],
