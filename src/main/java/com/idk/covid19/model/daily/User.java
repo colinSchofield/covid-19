@@ -1,4 +1,4 @@
-package com.idk.covid19.model;
+package com.idk.covid19.model.daily;
 
 public class User {
     private String firstName;

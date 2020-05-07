@@ -5,8 +5,8 @@ import TableSearch from './TableSearch'
 const NavBar = () => {
 
   return (
-    <Navbar bg="light" variant="light">
-      <Navbar.Brand href="/"><span role="img" aria-labelledby="virus">🦠</span> Covid-19 Daily Statistics <span role="img" aria-labelledby="virus">🦠</span></Navbar.Brand>
+    <Navbar bg="light" expand="lg" variant="light">
+      <Navbar.Brand href="/"><span role="img" aria-labelledby="virus" className="emoji">🦠</span> Covid-19 Daily Statistics <span role="img" aria-labelledby="virus" className="emoji">🦠</span></Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">

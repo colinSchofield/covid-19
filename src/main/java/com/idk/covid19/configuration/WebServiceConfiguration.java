@@ -11,15 +11,27 @@ public class WebServiceConfiguration {
     @Autowired
     Covid19Properties properties;
 
-    @Bean("rapidApiClient")
-    WebClient rapidApiClient(WebClient.Builder builder) {
+    @Bean("summaryClient")
+    WebClient summaryClient(WebClient.Builder builder) {
         return
                 builder
-                        .baseUrl("https://covid-193.p.rapidapi.com/statistics")
+                        .baseUrl(properties.getRapidApi().getCovid19Summary())
                         .defaultHeaders(headers ->
                         {
-                            headers.add("x-rapidapi-host", properties.getApiHost());
-                            headers.add("x-rapidapi-key", properties.getApiKey());
+                            headers.add("x-rapidapi-host", properties.getRapidApi().getApiHost());
+                            headers.add("x-rapidapi-key", properties.getRapidApi().getApiKey());
+                        }).build();
+    }
+
+    @Bean("historyClient")
+    WebClient historyClient(WebClient.Builder builder) {
+        return
+                builder
+                        .baseUrl(properties.getRapidApi().getWeeklyHistory())
+                        .defaultHeaders(headers ->
+                        {
+                            headers.add("x-rapidapi-host", properties.getRapidApi().getApiHost2());
+                            headers.add("x-rapidapi-key", properties.getRapidApi().getApiKey());
                         }).build();
     }
 }

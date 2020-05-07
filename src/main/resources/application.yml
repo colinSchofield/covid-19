@@ -14,8 +14,13 @@ logging:
 
 covid19:
   api-version: /api/1.0
+  exclude-region: All|Asia|Europe|North-America|South-America|Diamond-Princess-|.*ccedil.*|.*eacute.*
   admin-access:
     name: admin
     password: admin
-  api-host: covid-193.p.rapidapi.com
-  api-key: cb1f09fd7dmsh35f7dd8afd27dfdp191e0cjsnca765ccf022a
+  rapid-api:
+    api-host: covid-193.p.rapidapi.com
+    api-host2: coronavirus-map.p.rapidapi.com
+    api-key: cb1f09fd7dmsh35f7dd8afd27dfdp191e0cjsnca765ccf022a
+    covid19-summary: https://covid-193.p.rapidapi.com/statistics
+    weekly-history: https://coronavirus-map.p.rapidapi.com/v1/spots/month

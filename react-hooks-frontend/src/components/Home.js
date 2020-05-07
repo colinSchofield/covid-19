@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCovid19Stats } from '../utils/api'
+import { getCovid19Daily } from '../utils/api'
 import { Spinner } from 'react-bootstrap'
 import { Alert } from 'react-bootstrap'
 import Table from './Table'
@@ -11,7 +11,7 @@ export default function Home() {
   const tableContext = React.useContext(DataContext)
 
   React.useEffect(() => {
-    getCovid19Stats()
+    getCovid19Daily()
       .then((stats) => {
         setData(stats.response)
         tableContext.updateTable(stats.response)
@@ -29,17 +29,17 @@ export default function Home() {
   return (
 
     <div>
-      { (error !== null) &&
+      { error &&
         <Alert variant="danger">
         <Alert.Heading><span role="img" aria-labelledby="error">🛑</span> Error</Alert.Heading>
           <p>{error}</p>
         </Alert>
       }
 
-      { data === null && error === null && <p><br/><br/><br/><br/></p> }
-      { data === null && error === null && <Spinner animation="border" variant="success" /> }
+      { !data && !error && <p><br/><br/><br/><br/></p> }
+      { !data && !error && <Spinner animation="border" variant="success" /> }
 
-      { data !== null && <Table stats={data} /> }
+      { data && <Table stats={data} /> }
     </div>
 
   )

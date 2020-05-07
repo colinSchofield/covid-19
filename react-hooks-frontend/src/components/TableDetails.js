@@ -1,30 +1,55 @@
 import React from 'react'
-import { Line } from "react-chartjs-2";
-import { MDBContainer } from "mdbreact";
-import { Button, Modal } from 'react-bootstrap'
+import { Line } from 'react-chartjs-2'
+import { MDBContainer } from 'mdbreact'
+import { Spinner } from 'react-bootstrap'
+import { Button, Modal, Alert } from 'react-bootstrap'
+import { getCovid19Monthly } from '../utils/api'
 
-export default function TableDetails({dialogText}) {
-  const [show, setShow] = React.useState(true);
-  const [text, setText] = React.useState(dialogText)
+export default function TableDetails({region}) {
+  const [error, setError] = React.useState(null)
+  const [tableData, setTableData] = React.useState(null)
+  const [show, setShow] = React.useState(false)
+  const [text, setText] = React.useState(null)
   const [graphData, setGraphData] = React.useState(null)
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false)
+    setText(null)
+    setError(null)
+    setTableData(null)
+    region = null
+  }
 
   React.useEffect(() => {
 
-    setText(dialogText)
     setShow(true)
-  }, [dialogText])
+    setText(region)
+    getCovid19Monthly(region)
+      .then((stats) => {
+        setTableData(stats)
+      })
+      .catch((exception) => {
+        console.log("Error was Caught!", exception)
+        setError(exception.message)
+      })
+  }, [region])
 
 
   React.useEffect(() => {
-    let dataChange = data
-    dataChange.datasets[0].data = [120, 21, 5, 20, 5, 20, 0]
-    setGraphData(dataChange)
-  }, [])
+    if (tableData != null) {
+      let dataChange = data
+      dataChange.labels = tableData.labels
+      dataChange.datasets[0].data = tableData.newCases
+      dataChange.datasets[1].data = tableData.deaths
+      setGraphData(dataChange)
+
+      setText(region + " " + tableData.flag)
+      setShow(true)
+    }
+  }, [tableData])
 
   const data = {
-      labels: ["Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday"],
+      labels: ["", "", "", "", "", "", ""],
       datasets: [
         {
           label: "New Cases",
@@ -66,24 +91,35 @@ export default function TableDetails({dialogText}) {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [1, 3, 0, 5, 3, 2, 0]
+          data: [0, 0, 0, 0, 0, 0, 0]
         }
       ]
     }
 
   return (
-
     <div>
       <Modal show={show} onHide={handleClose} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter"><strong>{text}</strong></Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter"><span className="emoji">{text}</span></Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <MDBContainer>
-            <h4>New Cases and Deaths over the past week</h4>
+          <div className="App">
+          {!tableData && <p><br/><br/><br/><br/><br/><br/><br/><br/></p> }
+          {!error && !tableData && <Spinner animation="border" variant="success" />}
+          { error &&
+            <Alert variant="danger">
+            <Alert.Heading><span role="img" aria-labelledby="error">🛑</span> Error</Alert.Heading>
+              <p>{error}</p>
+            </Alert>
+          }
+          {!tableData && <p><br/><br/><br/><br/><br/><br/><br/><br/></p> }
+          </div>
+
+          {tableData && <MDBContainer>
+            <h4>New Cases and Deaths over the past Month</h4>
             <br/><br/>
             <Line data={graphData} options={{ responsive: true }} />
-          </MDBContainer>
+          </MDBContainer>}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

@@ -1,21 +1,12 @@
-package com.idk.covid19.model;
+package com.idk.covid19.model.daily;
 
 import java.util.List;
 
-public class Covid19Results {
-    private String get;
+public class Daily {
     private List<String> parameters;
     private List<String> errors;
     private Integer results;
     private List<CountryInfo> response;
-
-    public String getGet() {
-        return get;
-    }
-
-    public void setGet(String get) {
-        this.get = get;
-    }
 
     public List<String> getParameters() {
         return parameters;

@@ -1,4 +1,4 @@
-package com.idk.covid19.model;
+package com.idk.covid19.model.daily;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
