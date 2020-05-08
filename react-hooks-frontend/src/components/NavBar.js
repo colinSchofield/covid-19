@@ -12,11 +12,11 @@ const NavBar = () => {
         <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
 
-          { /* TODO: Fix SSR under Tomcat/Jetty */ }
+          { /* Note: the html extension -- this is to avoid requring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) */ }
 
-          <Nav.Link href="/">About</Nav.Link>
-          <Nav.Link href="/">Sign Up</Nav.Link>
-          <Nav.Link href="/">Admin</Nav.Link>
+          <Nav.Link href="/about.html">About</Nav.Link>
+          <Nav.Link href="/signup.html">Sign Up</Nav.Link>
+          <Nav.Link href="/admin.html">Admin</Nav.Link>
         </Nav>
         <TableSearch />
       </Navbar.Collapse>

@@ -2,7 +2,7 @@ spring:
   cache:
     cache-names: rapidApi
     caffeine:
-      spec: maximumSize=500,expireAfterAccess=10m
+      spec: maximumSize=500,expireAfterAccess=40m
 
 server:
   port: 8080
@@ -16,8 +16,10 @@ covid19:
   api-version: /api/1.0
   exclude-region: All|Asia|Europe|North-America|South-America|Diamond-Princess-|.*ccedil.*|.*eacute.*
   admin-access:
-    name: admin
-    password: admin
+    userName: user
+    userPassword: user
+    adminName: admin
+    adminPassword: admin
   rapid-api:
     api-host: covid-193.p.rapidapi.com
     api-host2: coronavirus-map.p.rapidapi.com

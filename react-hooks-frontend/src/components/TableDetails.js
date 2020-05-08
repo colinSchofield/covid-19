@@ -116,7 +116,7 @@ export default function TableDetails({region}) {
           </div>
 
           {tableData && <MDBContainer>
-            <h4>New Cases and Deaths over the past Month</h4>
+            <h4>New Cases and Deaths over the past month</h4>
             <br/><br/>
             <Line data={graphData} options={{ responsive: true }} />
           </MDBContainer>}

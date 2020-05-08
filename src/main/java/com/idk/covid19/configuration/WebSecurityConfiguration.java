@@ -16,7 +16,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    /** User Role of ADMIN is required to access this Service's API and for maintenance of the application  */
+    /** User Role of ADMIN is required to access this Service's API, while a role of VIEW can view the Coronavirus stats */
+    public static final String VIEW = "VIEW";
     public static final String ADMIN = "ADMIN";
 
     @Autowired
@@ -27,24 +28,31 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .cors().and()
                 .csrf().disable().authorizeRequests()
-                .antMatchers("/admin/**").hasRole(ADMIN)
-                .antMatchers("/api/**").hasRole(ADMIN)
+                .antMatchers("/admin.html/**").hasRole(ADMIN)
+//                .antMatchers("/api/**").hasAnyRole(VIEW, ADMIN)
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic();
+                .formLogin();
     }
 
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
+        UserDetails view =
+                User.withDefaultPasswordEncoder()
+                        .username(properties.getAdminAccess().getUserName())
+                        .password(properties.getAdminAccess().getUserPassword())
+                        .roles(VIEW)
+                        .build();
+
         UserDetails admin =
                 User.withDefaultPasswordEncoder()
-                        .username(properties.getAdminAccess().getName())
-                        .password(properties.getAdminAccess().getPassword())
+                        .username(properties.getAdminAccess().getAdminName())
+                        .password(properties.getAdminAccess().getAdminPassword())
                         .roles(ADMIN)
                         .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        return new InMemoryUserDetailsManager(view, admin);
     }
 }

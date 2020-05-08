@@ -38,23 +38,41 @@ public class Covid19Properties {
 
     public static class AdminAccess {
 
-        private String name;
-        private String password;
+        private String userName;
+        private String userPassword;
+        private String adminName;
+        private String adminPassword;
 
-        public String getName() {
-            return name;
+        public String getUserName() {
+            return userName;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setUserName(String userName) {
+            this.userName = userName;
         }
 
-        public String getPassword() {
-            return password;
+        public String getUserPassword() {
+            return userPassword;
         }
 
-        public void setPassword(String password) {
-            this.password = password;
+        public void setUserPassword(String userPassword) {
+            this.userPassword = userPassword;
+        }
+
+        public String getAdminName() {
+            return adminName;
+        }
+
+        public void setAdminName(String adminName) {
+            this.adminName = adminName;
+        }
+
+        public String getAdminPassword() {
+            return adminPassword;
+        }
+
+        public void setAdminPassword(String adminPassword) {
+            this.adminPassword = adminPassword;
         }
     }
 

@@ -1,7 +1,7 @@
 const setupHeaders = () => {
 
-  const username = "admin"
-  const password = "admin"
+  const username = "user"
+  const password = "user"
   let headers = new Headers();
   headers.append("Authorization", "Basic " + btoa(username + ":" + password));
   return headers
