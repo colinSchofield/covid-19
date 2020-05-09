@@ -2,19 +2,16 @@
 
 # Covid-19 Medical Information Site
 
+You may view the application by following the link below:
+
+> [Medical Information Site](http://ec2-3-8-131-4.eu-west-2.compute.amazonaws.com)
+
 ### Synopsis
 The intention of this program is to allow users to connect via the web and retrieve daily statistical information on the 
 **Covid-19** pandemic.
-
-You may view the application by following the link below:
  
->
-> [Medical Information Site](http://ec2-3-8-131-4.eu-west-2.compute.amazonaws.com)
->
- 
-
-The application presents a summary of the disease activity, based on world wide location. The information includes 
-critical patients, daily deltas as well as the deaths caused by the disease over the recent period.
+The application presents a summary of the disease activity, based on location. The information includes 
+critical patients, daily deltas as well as the deaths caused by the disease over the recent period. A user may click upon a region to display a graph of the last month of activity.
 
 Users may also sign-up for a newsletter which they will be sent via email, or they may opt to receive SMS notifications. 
 
@@ -38,6 +35,7 @@ DynamoDb NoSQL database, as this provides the best possible performance, scalabi
  ```
  1. mvn clean install
  2. mvn spring-boot:run
+ 3. Then connect with your browser to http://loalhost
  ```
 
 ### About the Developer
