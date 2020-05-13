@@ -18,7 +18,7 @@ export default function App() {
         <Router>
           <NavBar />
           <Switch>
-              { /* Note: the html extension -- this is to avoid requring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) */ }
+              { /* Note: the html extension -- this is to avoid requiring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) */ }
             <Route exact path='/' component={Home} />
             <Route path='/about.html' component={About} />
             <Route path='/signup.html' component={SignUp} />

@@ -2,6 +2,23 @@
   text-align: center;
 }
 
+.vertical-align {
+  min-height: 90%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 90vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+ .align-top {
+  margin: 20px 0px 0px 0px;
+}
+
+.align-bottom {
+  margin: 0px 0px 20px 0px;
+}
+
+
 img.emojione {
   margin: 0px !important;
   display: inline !important;
