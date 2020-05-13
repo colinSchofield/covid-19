@@ -1,5 +1,5 @@
 import React from 'react'
-import { MDBTooltip, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView, MDBIcon } from 'mdbreact'
+import { MDBTooltip, MDBBtn, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBView } from 'mdbreact'
 import Image from 'react-bootstrap/Image'
 import MeImg from '../assets/images/me.jpg'
 import ReactImg from '../assets/images/react.svg'
