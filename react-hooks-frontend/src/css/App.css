@@ -2,12 +2,14 @@
   text-align: center;
 }
 
-.vertical-align {
-  min-height: 90%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 90vh; /* These two lines are counted as one :-)       */
+@media all and (min-width: 760px) {
+  .vertical-align {
+    min-height: 90%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 90vh; /* These two lines are counted as one :-)       */
 
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
+  }
 }
 
  .align-top {

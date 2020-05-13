@@ -86,7 +86,7 @@ export default function About() {
             View source code here:
           </MDBCardText>
           <MDBView>
-            <a href="https://github.com/ColinSchofield"><Image className='align-bottom' src={GitHubImg} rounded width={80} /></a>
+            <a href="https://github.com/ColinSchofield/covid-19"><Image className='align-bottom' src={GitHubImg} rounded width={80} /></a>
           </MDBView>
         </MDBCard>
       </MDBCol>
