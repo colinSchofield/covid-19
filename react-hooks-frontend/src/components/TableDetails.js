@@ -4,6 +4,7 @@ import { MDBContainer } from 'mdbreact'
 import { Spinner } from 'react-bootstrap'
 import { Button, Modal, Alert } from 'react-bootstrap'
 import { getCovid19Monthly } from '../utils/api'
+import { isMobile } from '../utils/mobileResponsive'
 
 export default function TableDetails({region}) {
   const [error, setError] = React.useState(null)
@@ -96,6 +97,10 @@ export default function TableDetails({region}) {
       ]
     }
 
+  const modalHeight = () => {
+    return (isMobile()) ? <p><br/><br/><br/><br/><br/></p> : <p><br/><br/><br/><br/><br/><br/><br/><br/></p>
+  }
+
   return (
     <div>
       <Modal show={show} onHide={handleClose} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -104,7 +109,7 @@ export default function TableDetails({region}) {
         </Modal.Header>
         <Modal.Body>
           <div className="App">
-          {!tableData && <p><br/><br/><br/><br/><br/><br/><br/><br/></p> }
+          {!tableData && modalHeight() }
           {!error && !tableData && <Spinner animation="border" variant="success" />}
           { error &&
             <Alert variant="danger">
@@ -112,7 +117,7 @@ export default function TableDetails({region}) {
               <p>{error}</p>
             </Alert>
           }
-          {!tableData && <p><br/><br/><br/><br/><br/><br/><br/><br/></p> }
+          {!tableData && modalHeight() }
           </div>
 
           {tableData && <MDBContainer>

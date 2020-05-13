@@ -13,6 +13,10 @@ export const useWindowDimensions = () => {
   return { width }
 }
 
+export const isMobile = () => {
+    return (window.innerWidth <= MIN_WIDTH_MOBILE)
+}
+
 export const detectMobileChange = () => {
     return (window.innerWidth <= MIN_WIDTH_MOBILE) ? columnsMobile : columnsDesktop
 }

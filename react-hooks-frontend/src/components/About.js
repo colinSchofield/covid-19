@@ -30,17 +30,17 @@ export default function About() {
             <p className='font-weight-bold blue-text'>Senior Java Developer</p>
             <MDBCardText>
               Colin is a Full Stack Developer and has been working in Canada, USA,
-              Uk &amp; Australia for over fifteen years.
+              UK &amp; Australia for over fifteen years.
             </MDBCardText>
             <MDBCol md='12' className='d-flex justify-content-center'>
               <MDBBtn rounded floating color='fb'>
-                <a href="https://www.linkedin.com/in/colins"><FaLinkedinIn roundedCircle color='#0072b1' size={25}/></a>
+                <FaLinkedinIn onClick={() => {window.location.href = 'https://www.linkedin.com/in/colins/'}} roundedCircle color='#0072b1' size={25}/>
               </MDBBtn>
               <MDBBtn rounded floating color='tw'>
-                <a href="mailto:colin_sch@yahoo.com"><FaEnvelopeSquare roundedCircle color='#808080'size={25} /></a>
+                <FaEnvelopeSquare onClick={() => {window.location.href = 'mailto:colin_sch@yahoo.com'}} roundedCircle color='#808080'size={25} />
               </MDBBtn>
               <MDBBtn rounded floating color='dribbble'>
-                <a href="sms://+61448644233"><FaComments roundedCircle color='#68bd45' size={25}/></a>
+                <FaComments onClick={() => {window.location.href = 'sms://+61448644233'}} roundedCircle color='#68bd45' size={25}/>
               </MDBBtn>
             </MDBCol>
           </MDBCardBody>
@@ -50,7 +50,7 @@ export default function About() {
           <MDBView>
             <MDBTooltip domElement tag="span" placement="bottom">
               <span><Image src={RapidApiImg} rounded width='12%' /></span>
-              <span><strong>Rapid API</strong> CoronaVirus Restful Web Service API</span>
+              <span><strong>Rapid API</strong> CoronaVirus Restful Web Service</span>
             </MDBTooltip>
             <MDBTooltip domElement tag="span" placement="bottom">
               <span><Image src={AwsImg} rounded width='12%' /></span>
@@ -74,7 +74,7 @@ export default function About() {
             </MDBTooltip>
             <MDBTooltip domElement tag="span" placement="bottom">
               <span><Image src={JavaImg} rounded width='12%' /></span>
-              <span><strong>Java</strong> Provides the backend services</span>
+              <span><strong>Java</strong> written backend services</span>
             </MDBTooltip>
             <MDBTooltip domElement tag="span" placement="bottom">
               <span><Image src={SpringImg} rounded width='12%' /></span>
