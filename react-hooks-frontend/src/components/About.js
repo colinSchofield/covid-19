@@ -34,13 +34,13 @@ export default function About() {
             </MDBCardText>
             <MDBCol md='12' className='d-flex justify-content-center'>
               <MDBBtn rounded floating color='fb'>
-                <FaLinkedinIn onClick={() => {window.location.href = 'https://www.linkedin.com/in/colins/'}} roundedCircle color='#0072b1' size={25}/>
+                <FaLinkedinIn onClick={() => {window.open(`https://www.linkedin.com/in/colins`, `_self`)}} roundedCircle color='#0072b1' size={25}/>
               </MDBBtn>
               <MDBBtn rounded floating color='tw'>
-                <FaEnvelopeSquare onClick={() => {window.location.href = 'mailto:colin_sch@yahoo.com'}} roundedCircle color='#808080'size={25} />
+                <FaEnvelopeSquare onClick={() => {window.open(`mailto:colin_sch@yahoo.com`, `_self`)}} roundedCircle color='#808080'size={25} />
               </MDBBtn>
               <MDBBtn rounded floating color='dribbble'>
-                <FaComments onClick={() => {window.location.href = 'sms://+61448644233'}} roundedCircle color='#68bd45' size={25}/>
+                <FaComments onClick={() => {window.open(`sms:+61448644233`, `_self`)}} roundedCircle color='#68bd45' size={25}/>
               </MDBBtn>
             </MDBCol>
           </MDBCardBody>
