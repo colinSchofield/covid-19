@@ -135,9 +135,6 @@
 									<fileset dir="${project.basedir}/react-hooks-frontend/build"/>
 								</copy>
 						<!-- This is to avoid requiring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) -->
-								<copy todir="${project.build.directory}/classes/public">
-									<fileset dir="${project.basedir}/react-hooks-frontend/build"/>
-								</copy>
 								<copy file="${project.basedir}/react-hooks-frontend/build/index.html" tofile="${project.build.directory}/classes/public/about.html"/>
 								<copy file="${project.basedir}/react-hooks-frontend/build/index.html" tofile="${project.build.directory}/classes/public/signup.html"/>
 								<copy file="${project.basedir}/react-hooks-frontend/build/index.html" tofile="${project.build.directory}/classes/public/admin.html"/>

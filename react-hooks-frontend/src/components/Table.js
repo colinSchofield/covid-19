@@ -48,6 +48,7 @@ export default function App({data}) {
             pagination={ paginationFactory() }
             striped
             hover
+            condensed
         />
         { detailsView && <TableDetails region={region} /> }
       </div>

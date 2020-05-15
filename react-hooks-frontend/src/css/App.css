@@ -28,16 +28,6 @@
   }
 }
 
-/* About box, centering */
-.align-top {
-  margin: 20px 0px 0px 0px;
-}
-
-.align-bottom {
-  margin: 0px 0px 20px 0px;
-}
-
-
 img.emojione {
   margin: 0px !important;
   display: inline !important;
