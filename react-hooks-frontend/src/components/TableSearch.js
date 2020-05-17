@@ -9,13 +9,11 @@ export default function TableSearch() {
   const tableContext = React.useContext(DataContext)
 
   React.useEffect(() => {
-
    if (fullTable.current === null && tableContext.tableData !== null) {
-     fullTable.current = tableContext.tableData
+     fullTable.current = tableContext.tableData.data
      searchFieldRef.current.disabled = false
      searchFieldRef.current.focus()
    }
-
   }, [ tableContext ])
 
   function filterTableBySearchField(event) {
@@ -24,16 +22,26 @@ export default function TableSearch() {
     const filteredTable = fullTable.current.filter((element) =>
         element.country.toLowerCase().startsWith(event.target.value.toLowerCase()))
 
-    tableContext.updateTable(filteredTable)
+    tableContext.updateTable({data: filteredTable, countrySelected: null})
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+
+    if (tableContext.tableData.data.length > 0) {
+      const country = tableContext.tableData.data[0].country
+      tableContext.tableData.countrySelected = country
+      tableContext.updateTable({data: tableContext.tableData.data, countrySelected: country})
+    }
   }
 
   return (
 
-    <Form inline>
+    <Form onSubmit={handleSubmit} inline>
       <FormControl type="text" disabled
         placeholder="Country Name" className="mr-sm-2"
         value={searchField} onChange={filterTableBySearchField} ref={searchFieldRef} />
-      <Button variant="outline-success" onClick={() => {}}>Search</Button>
+      <Button variant="outline-success" onClick={handleSubmit}>Search</Button>
     </Form>
   )
 }

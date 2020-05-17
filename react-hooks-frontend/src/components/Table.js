@@ -4,7 +4,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator'
 import TableDetails from './TableDetails'
 import { useWindowDimensions, detectMobileChange } from '../utils/mobileResponsive'
 
-export default function App({data}) {
+export default function App({data, displayRegion}) {
   const { width } = useWindowDimensions()
   const [columns, setColumns] = React.useState(detectMobileChange())
   const [detailsView, setDetailsView] = React.useState(false)
@@ -34,6 +34,13 @@ export default function App({data}) {
   React.useEffect(() => {
     setColumns(detectMobileChange())
   }, [width])
+
+  React.useEffect(() => {
+    if (displayRegion !== null) {
+      setRegion(displayRegion)
+      setDetailsView(true)
+    }
+  }, [displayRegion])
 
   return (
 

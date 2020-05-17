@@ -2,19 +2,9 @@
   text-align: center;
 }
 
-/* So the button is together with the search field in mobile mode */
-@media only screen and (max-width: 760px)  {
-  .form-control {
-    width: 75% !important;
-  }
-}
-
-/* For paginator toolbar, in mobile mode */
-@media only screen and (max-width: 760px)  {
-  .col-md-6 {
-    width: auto !important;
-    padding-left: 0px !important;
-  }
+/* Remove the sizePerPage dropdown because it is not positioned correctly */
+.react-bs-table-sizePerPage-dropdown {
+  visibility: hidden !important;
 }
 
 /* Remove centreing if in mobile mode */
