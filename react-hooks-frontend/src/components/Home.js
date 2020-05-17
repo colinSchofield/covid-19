@@ -1,8 +1,9 @@
 import React from 'react'
 import { getCovid19Daily } from '../utils/api'
-import { Spinner, Alert } from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import Table from './Table'
 import DataContext from '../context/DataContext'
+import Error from '../utils/Error'
 
 export default function Home() {
   const [ data, setData ] = React.useState(null)
@@ -38,12 +39,7 @@ export default function Home() {
   return (
 
     <div>
-      { error &&
-        <Alert variant="danger">
-        <Alert.Heading><span role="img" aria-labelledby="error">🛑</span> Error</Alert.Heading>
-          <p>{error}</p>
-        </Alert>
-      }
+      <Error error={error} />
 
       { !data && !error && <p><br/><br/><br/><br/></p> }
       { !data && !error && <Spinner animation="border" variant="success" /> }

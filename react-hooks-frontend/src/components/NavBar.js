@@ -2,8 +2,7 @@ import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
 import TableSearch from './TableSearch'
 
-const NavBar = () => {
-
+export default function NavBar({ showSearch }) {
   return (
     <Navbar bg="light" expand="lg" variant="light">
       <Navbar.Brand href="/"><span role="img" aria-labelledby="virus" className="emoji">🦠</span> Covid-19 Daily Statistics <span role="img" aria-labelledby="virus" className="emoji">🦠</span></Navbar.Brand>
@@ -18,10 +17,8 @@ const NavBar = () => {
           <Nav.Link href="/signup.html">Sign Up</Nav.Link>
           <Nav.Link href="/admin.html">Admin</Nav.Link>
         </Nav>
-        <TableSearch />
+        { showSearch && <TableSearch /> }
       </Navbar.Collapse>
     </Navbar>
   )
 }
-
-export default NavBar
