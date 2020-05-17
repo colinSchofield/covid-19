@@ -38,7 +38,7 @@ export default function TableSearch() {
   return (
 
     <Form onSubmit={handleSubmit} inline>
-      <FormControl type="text" disabled
+      <FormControl id="searchField" type="text" disabled
         placeholder="Country Name" className="mr-sm-2"
         value={searchField} onChange={filterTableBySearchField} ref={searchFieldRef} />
       <Button variant="outline-success" onClick={handleSubmit}>Search</Button>
