@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+/* Keep the age related imagery in the same spot */
+.fixed-image-height {
+    height: 180px;
+    background-position: center;
+    background-size: cover;
+}
+
 #searchField {
   width: inherit;
 }

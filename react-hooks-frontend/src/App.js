@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import About from './components/About'
-import SignUp from './components/SignUp'
+import SignUp from './components/signup/SignUp'
 import Admin from './components/Admin'
 import { DataProvider } from './context/DataContext'
 

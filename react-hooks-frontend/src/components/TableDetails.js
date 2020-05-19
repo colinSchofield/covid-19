@@ -2,9 +2,10 @@ import React from 'react'
 import { Line } from 'react-chartjs-2'
 import { MDBContainer } from 'mdbreact'
 import { Spinner } from 'react-bootstrap'
-import { Button, Modal, Alert } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import { getCovid19Monthly } from '../utils/api'
 import { isMobile } from '../utils/mobileResponsive'
+import Error from '../utils/Error'
 
 export default function TableDetails({region}) {
   const [error, setError] = React.useState(null)
@@ -111,12 +112,7 @@ export default function TableDetails({region}) {
           <div className="App">
           {!tableData && modalHeight() }
           {!error && !tableData && <Spinner animation="border" variant="success" />}
-          { error &&
-            <Alert variant="danger">
-            <Alert.Heading><span role="img" aria-labelledby="error">🛑</span> Error</Alert.Heading>
-              <p>{error}</p>
-            </Alert>
-          }
+          <Error error={error} />
           {!tableData && modalHeight() }
           </div>
 
