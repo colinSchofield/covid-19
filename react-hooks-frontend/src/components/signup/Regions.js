@@ -1,7 +1,10 @@
 import React from 'react'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact'
+import RegionList from './RegionList'
 
 export default function Regions({signupDetails}) {
+  const [checked, setChecked] = React.useState([1])
+
   return (
     <div>
       <MDBRow className='align-middle'>
@@ -11,8 +14,10 @@ export default function Regions({signupDetails}) {
           <MDBCard>
             <MDBCardBody>
               <MDBCardTitle>Regions</MDBCardTitle>
-              <MDBCardText>
-              TODO..
+              <MDBCardText className="scrollable">
+
+                <RegionList checked={checked} setChecked={setChecked} />
+
               </MDBCardText>
             </MDBCardBody>
           </MDBCard>

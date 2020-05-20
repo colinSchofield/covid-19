@@ -36,7 +36,6 @@ export default function Welcome({signupDetails}) {
   const handleGender = (event, newGender) => {
     if (newGender !== null) {
       setGender(newGender)
-      console.log("sex is: " + newGender)
     }
   }
 
@@ -52,13 +51,13 @@ export default function Welcome({signupDetails}) {
         <MDBCol md='4'>
         </MDBCol>
         <MDBCol md='4'>
-          <MDBCard>
+          <MDBCard className="text-left">
             <MDBCardBody>
               <MDBCardTitle>Details</MDBCardTitle>
               <MDBCardText>
                 <div className="grey-text">
-                  <MDBInput containerClass="text-left" focused label="Full Name (or Nickname)" icon="user" group type="email" validate error="wrong" success="right" />
-                  <FaVenusMars color='grey' size={35} />&nbsp;
+                  <MDBInput focused required label="Full Name (or Nickname)" icon="user" group type="email" validate error="wrong" success="right" />
+                  <FaVenusMars className="image-align" color='grey' size={35} />&nbsp;
                   <ToggleButtonGroup
                     value={gender}
                     exclusive
@@ -108,7 +107,7 @@ export default function Welcome({signupDetails}) {
                       <FaBabyCarriage color='grey' size={25} />
                     </Grid>
                     <Grid item xs>
-                      <Slider value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
+                      <Slider min={7} max={100} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
                     </Grid>
                     <Grid item>
                       <FaBlind color='grey' size={25} />

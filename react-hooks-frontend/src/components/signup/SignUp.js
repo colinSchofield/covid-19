@@ -7,8 +7,10 @@ import Button from '@material-ui/core/Button'
 import Welcome from './Welcome'
 import Details from './Details'
 import Regions from './Regions'
-import CheckboxListSecondary from './CheckboxListSecondary'
+import Notification from './Notification'
+import Confirm from './Confirm'
 
+import FormsPage from './FormsPage'
 
 const WELCOME_PAGE = 0
 const DETAILS_PAGE = 1
@@ -56,9 +58,9 @@ export default function SignUp() {
 
         { activeStep === WELCOME_PAGE && <Welcome signupDetails={details} /> }
         { activeStep === DETAILS_PAGE && <Details signupDetails={details} /> }
-        { activeStep === REGIONS_PAGE && <CheckboxListSecondary signupDetails={details} /> }
-        { activeStep === NOTIFICATION_PAGE && <Welcome signupDetails={details} /> }
-        { activeStep === CONFIRM_PAGE && <Welcome signupDetails={details} /> }
+        { activeStep === REGIONS_PAGE && <Regions signupDetails={details} /> }
+        { activeStep === NOTIFICATION_PAGE && <Notification signupDetails={details} /> }
+        { activeStep === CONFIRM_PAGE && <Confirm signupDetails={details} /> }
 
         { activeStep === steps.length ? (
           <div>

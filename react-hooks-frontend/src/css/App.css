@@ -2,9 +2,21 @@
   text-align: center;
 }
 
+/* Used to line up the icon with the toggle buttons */
+.image-align {
+  vertical-align: text-bottom;
+}
+
+/* To enable a scrollable card for the region information */
+.scrollable {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
 /* Keep the age related imagery in the same spot */
 .fixed-image-height {
-    height: 180px;
+    height: 160px;
+    text-align: center;
     background-position: center;
     background-size: cover;
 }
@@ -73,13 +85,4 @@ span.emoji {
 
 .App-link {
   color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

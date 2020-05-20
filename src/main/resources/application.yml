@@ -14,7 +14,7 @@ logging:
 
 covid19:
   api-version: /api/1.0
-  exclude-region: All|Asia|Europe|North-America|South-America|Diamond-Princess-|.*ccedil.*|.*eacute.*
+  exclude-region: All|Asia|Europe|North-America|Africa|South-America|Diamond-Princess-|.*ccedil.*|.*eacute.*
   admin-access:
     userName: user
     userPassword: user

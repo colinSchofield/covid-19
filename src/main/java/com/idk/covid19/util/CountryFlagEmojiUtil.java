@@ -1,8 +1,13 @@
 package com.idk.covid19.util;
 
+import com.idk.covid19.model.Region;
+import org.apache.commons.text.WordUtils;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Component
 public class CountryFlagEmojiUtil {
@@ -15,6 +20,30 @@ public class CountryFlagEmojiUtil {
     }
 
     public CountryFlagEmojiUtil() {
+        emojiRegionMapper.put("Australia", "🇦🇺");
+        emojiRegionMapper.put("Canada", "🇨🇦");
+        emojiRegionMapper.put("UK", "🇬🇧");
+        emojiRegionMapper.put("USA", "🇺🇸");
+        emojiRegionMapper.put("China", "🇨🇳");
+        emojiRegionMapper.put("Chile", "🇨🇱");
+        emojiRegionMapper.put("New-Zealand", "🇳🇿");
+        emojiRegionMapper.put("Spain", "🇪🇸");
+        emojiRegionMapper.put("Italy", "🇮🇹");
+        emojiRegionMapper.put("Bahamas", "🇧🇸");
+        emojiRegionMapper.put("Barbados", "🇧🇧");
+        emojiRegionMapper.put("Brazil", "🇧🇷");
+        emojiRegionMapper.put("Belgium", "🇧🇪");
+        emojiRegionMapper.put("France", "🇫🇷");
+        emojiRegionMapper.put("Poland", "🇵🇱");
+        emojiRegionMapper.put("Peru", "🇵🇪");
+        emojiRegionMapper.put("Russia", "🇷🇺");
+        emojiRegionMapper.put("Germany", "🇩🇪");
+        emojiRegionMapper.put("Iran", "🇮🇷");
+        emojiRegionMapper.put("India", "🇮🇳");
+        emojiRegionMapper.put("Mexico", "🇲🇽");
+        emojiRegionMapper.put("Turkey", "🇹🇷");
+        emojiRegionMapper.put("Saudi-Arabia", "🇸🇦");
+        emojiRegionMapper.put("Antarctica", "🇦🇶");
         emojiRegionMapper.put("Afghanistan", "🇦🇫");
         emojiRegionMapper.put("Åland-Islands", "🇦🇽");
         emojiRegionMapper.put("Albania", "🇦🇱");
@@ -23,20 +52,15 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Andorra", "🇦🇩");
         emojiRegionMapper.put("Angola", "🇦🇴");
         emojiRegionMapper.put("Anguilla", "🇦🇮");
-        emojiRegionMapper.put("Antarctica", "🇦🇶");
         emojiRegionMapper.put("Antigua-and-Barbuda", "🇦🇬");
         emojiRegionMapper.put("Argentina", "🇦🇷");
         emojiRegionMapper.put("Armenia", "🇦🇲");
         emojiRegionMapper.put("Aruba", "🇦🇼");
-        emojiRegionMapper.put("Australia", "🇦🇺");
         emojiRegionMapper.put("Austria", "🇦🇹");
         emojiRegionMapper.put("Azerbaijan", "🇦🇿");
-        emojiRegionMapper.put("Bahamas", "🇧🇸");
         emojiRegionMapper.put("Bahrain", "🇧🇭");
         emojiRegionMapper.put("Bangladesh", "🇧🇩");
-        emojiRegionMapper.put("Barbados", "🇧🇧");
         emojiRegionMapper.put("Belarus", "🇧🇾");
-        emojiRegionMapper.put("Belgium", "🇧🇪");
         emojiRegionMapper.put("Belize", "🇧🇿");
         emojiRegionMapper.put("Benin", "🇧🇯");
         emojiRegionMapper.put("Bermuda", "🇧🇲");
@@ -45,7 +69,6 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Bosnia-and-Herzegovina", "🇧🇦");
         emojiRegionMapper.put("Botswana", "🇧🇼");
         emojiRegionMapper.put("Bouvet-Island", "🇧🇻");
-        emojiRegionMapper.put("Brazil", "🇧🇷");
         emojiRegionMapper.put("British-Indian-Ocean-Territory", "🇮🇴");
         emojiRegionMapper.put("Brunei", "🇧🇳");
         emojiRegionMapper.put("Bulgaria", "🇧🇬");
@@ -53,14 +76,11 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Burundi", "🇧🇮");
         emojiRegionMapper.put("Cambodia", "🇰🇭");
         emojiRegionMapper.put("Cameroon", "🇨🇲");
-        emojiRegionMapper.put("Canada", "🇨🇦");
         emojiRegionMapper.put("Cape-Verde", "🇨🇻");
         emojiRegionMapper.put("Caribbean-Netherlands", "🇧🇶");
         emojiRegionMapper.put("Cayman-Islands", "🇰🇾");
         emojiRegionMapper.put("Central-African-Republic", "🇨🇫");
         emojiRegionMapper.put("Chad", "🇹🇩");
-        emojiRegionMapper.put("Chile", "🇨🇱");
-        emojiRegionMapper.put("China", "🇨🇳");
         emojiRegionMapper.put("Christmas-Island", "🇨🇽");
         emojiRegionMapper.put("Cocos-(Keeling)-Islands", "🇨🇨");
         emojiRegionMapper.put("Colombia", "🇨🇴");
@@ -92,14 +112,12 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Faroe-Islands", "🇫🇴");
         emojiRegionMapper.put("Fiji", "🇫🇯");
         emojiRegionMapper.put("Finland", "🇫🇮");
-        emojiRegionMapper.put("France", "🇫🇷");
         emojiRegionMapper.put("French-Guiana", "🇬🇫");
         emojiRegionMapper.put("French-Polynesia", "🇵🇫");
         emojiRegionMapper.put("French-Southern-and-Antarctic-Lands", "🇹🇫");
         emojiRegionMapper.put("Gabon", "🇬🇦");
         emojiRegionMapper.put("Gambia", "🇬🇲");
         emojiRegionMapper.put("Georgia", "🇬🇪");
-        emojiRegionMapper.put("Germany", "🇩🇪");
         emojiRegionMapper.put("Ghana", "🇬🇭");
         emojiRegionMapper.put("Gibraltar", "🇬🇮");
         emojiRegionMapper.put("Greece", "🇬🇷");
@@ -118,14 +136,11 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Hong-Kong", "🇭🇰");
         emojiRegionMapper.put("Hungary", "🇭🇺");
         emojiRegionMapper.put("Iceland", "🇮🇸");
-        emojiRegionMapper.put("India", "🇮🇳");
         emojiRegionMapper.put("Indonesia", "🇮🇩");
-        emojiRegionMapper.put("Iran", "🇮🇷");
         emojiRegionMapper.put("Iraq", "🇮🇶");
         emojiRegionMapper.put("Ireland", "🇮🇪");
         emojiRegionMapper.put("Isle-of-Man", "🇮🇲");
         emojiRegionMapper.put("Israel", "🇮🇱");
-        emojiRegionMapper.put("Italy", "🇮🇹");
         emojiRegionMapper.put("Jamaica", "🇯🇲");
         emojiRegionMapper.put("Japan", "🇯🇵");
         emojiRegionMapper.put("Jersey", "🇯🇪");
@@ -159,7 +174,6 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Mauritania", "🇲🇷");
         emojiRegionMapper.put("Mauritius", "🇲🇺");
         emojiRegionMapper.put("Mayotte", "🇾🇹");
-        emojiRegionMapper.put("Mexico", "🇲🇽");
         emojiRegionMapper.put("Micronesia", "🇫🇲");
         emojiRegionMapper.put("Moldova", "🇲🇩");
         emojiRegionMapper.put("Monaco", "🇲🇨");
@@ -174,7 +188,6 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Nepal", "🇳🇵");
         emojiRegionMapper.put("Netherlands", "🇳🇱");
         emojiRegionMapper.put("New-Caledonia", "🇳🇨");
-        emojiRegionMapper.put("New-Zealand", "🇳🇿");
         emojiRegionMapper.put("Nicaragua", "🇳🇮");
         emojiRegionMapper.put("Niger", "🇳🇪");
         emojiRegionMapper.put("Nigeria", "🇳🇬");
@@ -190,16 +203,13 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Panama", "🇵🇦");
         emojiRegionMapper.put("Papua-New-Guinea", "🇵🇬");
         emojiRegionMapper.put("Paraguay", "🇵🇾");
-        emojiRegionMapper.put("Peru", "🇵🇪");
         emojiRegionMapper.put("Philippines", "🇵🇭");
         emojiRegionMapper.put("Pitcairn-Islands", "🇵🇳");
-        emojiRegionMapper.put("Poland", "🇵🇱");
         emojiRegionMapper.put("Portugal", "🇵🇹");
         emojiRegionMapper.put("Puerto-Rico", "🇵🇷");
         emojiRegionMapper.put("Qatar", "🇶🇦");
         emojiRegionMapper.put("Réunion", "🇷🇪");
         emojiRegionMapper.put("Romania", "🇷🇴");
-        emojiRegionMapper.put("Russia", "🇷🇺");
         emojiRegionMapper.put("Rwanda", "🇷🇼");
         emojiRegionMapper.put("Saint-Barthélemy", "🇧🇱");
         emojiRegionMapper.put("Saint-Helena", "🇸🇭");
@@ -211,7 +221,6 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Samoa", "🇼🇸");
         emojiRegionMapper.put("San-Marino", "🇸🇲");
         emojiRegionMapper.put("São-Tomé-and-Príncipe", "🇸🇹");
-        emojiRegionMapper.put("Saudi-Arabia", "🇸🇦");
         emojiRegionMapper.put("󠁳󠁣󠁴󠁿Scotland", "🏴󠁧󠁢");
         emojiRegionMapper.put("Senegal", "🇸🇳");
         emojiRegionMapper.put("Serbia", "🇷🇸");
@@ -226,7 +235,6 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("South-Africa", "🇿🇦");
         emojiRegionMapper.put("South-Georgia", "🇬🇸");
         emojiRegionMapper.put("South-Sudan", "🇸🇸");
-        emojiRegionMapper.put("Spain", "🇪🇸");
         emojiRegionMapper.put("Sri-Lanka", "🇱🇰");
         emojiRegionMapper.put("Sudan", "🇸🇩");
         emojiRegionMapper.put("Suriname", "🇸🇷");
@@ -244,15 +252,12 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Tonga", "🇹🇴");
         emojiRegionMapper.put("Trinidad-and-Tobago", "🇹🇹");
         emojiRegionMapper.put("Tunisia", "🇹🇳");
-        emojiRegionMapper.put("Turkey", "🇹🇷");
         emojiRegionMapper.put("Turkmenistan", "🇹🇲");
         emojiRegionMapper.put("Turks-and-Caicos-Islands", "🇹🇨");
         emojiRegionMapper.put("Tuvalu", "🇹🇻");
         emojiRegionMapper.put("Uganda", "🇺🇬");
         emojiRegionMapper.put("Ukraine", "🇺🇦");
         emojiRegionMapper.put("United-Arab-Emirates", "🇦🇪");
-        emojiRegionMapper.put("UK", "🇬🇧");
-        emojiRegionMapper.put("USA", "🇺🇸");
         emojiRegionMapper.put("United-States-Minor-Outlying-Islands", "🇺🇲");
         emojiRegionMapper.put("Uruguay", "🇺🇾");
         emojiRegionMapper.put("Uzbekistan", "🇺🇿");
@@ -270,16 +275,40 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Zimbabwe", "🇿🇼");
     }
 
+    public Mono<List<Region>> getRegionList() {
+        return Mono.just(emojiRegionMapper.getListOfRegions());
+    }
+
     public static class CaseInsensitiveMap extends HashMap<String, String> {
+
+        private List<Region> listOfRegions = new ArrayList<>();
+
+        private String locationDecorator(String location) {
+            if (location == null) {
+                return null;
+            }
+
+            StringBuilder sb = new StringBuilder();
+            for (String word : location.split("-")) {
+                sb.append(WordUtils.capitalize(word));
+                sb.append(" ");
+            }
+            return sb.toString().trim();
+        }
 
         @Override
         public String put(String key, String value) {
+            getListOfRegions().add(new Region(key, locationDecorator(key), value));
             return super.put(key.toLowerCase(), value);
         }
 
         // not @Override because that would require the key parameter to be of type Object
         public String get(String key) {
             return super.get(key.toLowerCase());
+        }
+
+        public List<Region> getListOfRegions() {
+            return listOfRegions;
         }
     }
 }
