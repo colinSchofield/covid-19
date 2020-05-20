@@ -10,8 +10,6 @@ import Regions from './Regions'
 import Notification from './Notification'
 import Confirm from './Confirm'
 
-import FormsPage from './FormsPage'
-
 const WELCOME_PAGE = 0
 const DETAILS_PAGE = 1
 const REGIONS_PAGE = 2

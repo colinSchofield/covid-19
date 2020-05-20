@@ -31,7 +31,7 @@ import Male10Img from '../../assets/images/signup/male-10.jpg'
 import Male11Img from '../../assets/images/signup/male-11.jpg'
 
 export default function Welcome({signupDetails}) {
-  const [gender, setGender] = React.useState(null)
+  const [gender, setGender] = React.useState('Male')
 
   const handleGender = (event, newGender) => {
     if (newGender !== null) {
@@ -39,7 +39,7 @@ export default function Welcome({signupDetails}) {
     }
   }
 
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(7);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -107,7 +107,7 @@ export default function Welcome({signupDetails}) {
                       <FaBabyCarriage color='grey' size={25} />
                     </Grid>
                     <Grid item xs>
-                      <Slider min={7} max={100} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
+                      <Slider min={1} max={100} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
                     </Grid>
                     <Grid item>
                       <FaBlind color='grey' size={25} />
