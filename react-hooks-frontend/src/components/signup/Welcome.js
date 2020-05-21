@@ -1,7 +1,7 @@
 import React from 'react'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact'
 import Image from 'react-bootstrap/Image'
-import BannerImg from '../../assets/images/Coronavirus-Banner.png'
+import BannerImg from '../../assets/images/Coronavirus-Banner.jpg'
 
 export default function Welcome({signupDetails}) {
   return (
