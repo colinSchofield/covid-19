@@ -1,5 +1,5 @@
 import React from 'react'
-import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBInput } from 'mdbreact'
+import { MDBIcon, toast, ToastContainer, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBInput } from 'mdbreact'
 import ToggleButton from '@material-ui/lab/ToggleButton'
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup'
 import { FaMale, FaFemale, FaVenusMars, FaBlind, FaBabyCarriage } from 'react-icons/fa'
@@ -30,8 +30,12 @@ import Male9Img from '../../assets/images/signup/male-9.jpg'
 import Male10Img from '../../assets/images/signup/male-10.jpg'
 import Male11Img from '../../assets/images/signup/male-11.jpg'
 
-export default function Welcome({signupDetails}) {
+export default function Welcome({validateRef, signupDetails, setActiveStep}) {
+  const submitRef = React.useRef()
+  React.useImperativeHandle(validateRef, () => submitRef.current)
+  const [name, setName] = React.useState('')
   const [gender, setGender] = React.useState('Male')
+  const [age, setAge] = React.useState(7)
 
   const handleGender = (event, newGender) => {
     if (newGender !== null) {
@@ -39,89 +43,105 @@ export default function Welcome({signupDetails}) {
     }
   }
 
-  const [value, setValue] = React.useState(7);
+  const handleAgeChange = (event, newAge) => {
+    setAge(newAge)
+  }
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (name.length > 0) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    } else {
+      toast.warn(<span><MDBIcon icon="exclamation-triangle" /> Please give your Name</span>)
+    }
+  }
 
   return (
     <div>
-      <MDBRow>
-        <MDBCol md='4'>
-        </MDBCol>
-        <MDBCol md='4'>
-          <MDBCard className="text-left">
-            <MDBCardBody>
-              <MDBCardTitle>Details</MDBCardTitle>
-              <MDBCardText>
-                <div className="grey-text">
-                  <MDBInput focused required label="Full Name (or Nickname)" icon="user" group type="email" validate error="wrong" success="right" />
-                  <FaVenusMars className="image-align" color='grey' size={35} />&nbsp;
-                  <ToggleButtonGroup
-                    value={gender}
-                    exclusive
-                    onChange={handleGender}>
-                    <ToggleButton value="Male">
-                      <FaMale color='#4285f4' size={25} />
-                    </ToggleButton>
-                    <ToggleButton value="Female">
-                      <FaFemale color='violet' size={25} />
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                  <br/>
-                  <br/>
-                  <div className='font-weight-bold blue-text'>
-                  Your Age: {value}
-                  </div>
-                   <div className='fixed-image-height'>
-
-                      { gender === 'Female' && value >= 1 && value < 3 && <Image src={Female1Img} /> }
-                      { gender === 'Female' && value >= 3 && value < 7 && <Image src={Female2Img} /> }
-                      { gender === 'Female' && value >= 7 && value < 10 && <Image src={Female3Img} /> }
-                      { gender === 'Female' && value >= 10 && value < 14 && <Image src={Female4Img} /> }
-                      { gender === 'Female' && value >= 14 && value < 22 && <Image src={Female5Img} /> }
-                      { gender === 'Female' && value >= 22 && value < 30 && <Image src={Female6Img} /> }
-                      { gender === 'Female' && value >= 30 && value < 36 && <Image src={Female7Img} /> }
-                      { gender === 'Female' && value >= 36 && value < 44 && <Image src={Female8Img} /> }
-                      { gender === 'Female' && value >= 44 && value < 52 && <Image src={Female9Img} /> }
-                      { gender === 'Female' && value >= 52 && value < 60 && <Image src={Female10Img} /> }
-                      { gender === 'Female' && value >= 60 && value < 85 && <Image src={Female11Img} /> }
-                      { gender === 'Female' && value >= 85 && <Image src={Female12Img} /> }
-
-                      { gender === 'Male' && value >= 1 && value < 3 && <Image src={Male1Img} /> }
-                      { gender === 'Male' && value >= 3 && value < 7 && <Image src={Male2Img} /> }
-                      { gender === 'Male' && value >= 7 && value < 10 && <Image src={Male3Img} /> }
-                      { gender === 'Male' && value >= 10 && value < 14 && <Image src={Male4Img} /> }
-                      { gender === 'Male' && value >= 14 && value < 22 && <Image src={Male5Img} /> }
-                      { gender === 'Male' && value >= 22 && value < 30 && <Image src={Male6Img} /> }
-                      { gender === 'Male' && value >= 30 && value < 36 && <Image src={Male7Img} /> }
-                      { gender === 'Male' && value >= 36 && value < 44 && <Image src={Male8Img} /> }
-                      { gender === 'Male' && value >= 44 && value < 57 && <Image src={Male9Img} /> }
-                      { gender === 'Male' && value >= 57 && value < 75 && <Image src={Male10Img} /> }
-                      { gender === 'Male' && value >= 75 && <Image src={Male11Img} /> }
-
+      <form onSubmit={handleSubmit}>
+        <input type="submit" style={{display: "none"}} ref={submitRef} />
+        <MDBRow>
+          <MDBCol md='4'>
+          </MDBCol>
+          <MDBCol md='4'>
+            <MDBCard className="text-left">
+              <MDBCardBody>
+                <MDBCardTitle>Details</MDBCardTitle>
+                <MDBCardText>
+                  <div className="grey-text">
+                    <MDBInput focused label="Full Name (or Nickname)" value={name} onChange={(e) => {setName(e.target.value)} }icon="user" group type="text" />
+                    <FaVenusMars className="image-align" color='grey' size={35} />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <ToggleButtonGroup
+                      value={gender}
+                      exclusive
+                      onChange={handleGender}>
+                      <ToggleButton value="Male">
+                        <FaMale color='#4285f4' size={25} />
+                      </ToggleButton>
+                      <ToggleButton value="Female">
+                        <FaFemale color='violet' size={25} />
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                    <br/>
+                    <br/>
+                    <div className='font-weight-bold blue-text'>
+                    Your Age: {age}
                     </div>
-                  <Grid container spacing={2}>
-                    <Grid item>
-                      <FaBabyCarriage color='grey' size={25} />
+                     <div className='fixed-image-height'>
+
+                        { gender === 'Female' && age >= 1 && age < 3 && <Image src={Female1Img} /> }
+                        { gender === 'Female' && age >= 3 && age < 7 && <Image src={Female2Img} /> }
+                        { gender === 'Female' && age >= 7 && age < 10 && <Image src={Female3Img} /> }
+                        { gender === 'Female' && age >= 10 && age < 14 && <Image src={Female4Img} /> }
+                        { gender === 'Female' && age >= 14 && age < 22 && <Image src={Female5Img} /> }
+                        { gender === 'Female' && age >= 22 && age < 30 && <Image src={Female6Img} /> }
+                        { gender === 'Female' && age >= 30 && age < 36 && <Image src={Female7Img} /> }
+                        { gender === 'Female' && age >= 36 && age < 44 && <Image src={Female8Img} /> }
+                        { gender === 'Female' && age >= 44 && age < 52 && <Image src={Female9Img} /> }
+                        { gender === 'Female' && age >= 52 && age < 60 && <Image src={Female10Img} /> }
+                        { gender === 'Female' && age >= 60 && age < 85 && <Image src={Female11Img} /> }
+                        { gender === 'Female' && age >= 85 && <Image src={Female12Img} /> }
+
+                        { gender === 'Male' && age >= 1 && age < 3 && <Image src={Male1Img} /> }
+                        { gender === 'Male' && age >= 3 && age < 7 && <Image src={Male2Img} /> }
+                        { gender === 'Male' && age >= 7 && age < 10 && <Image src={Male3Img} /> }
+                        { gender === 'Male' && age >= 10 && age < 14 && <Image src={Male4Img} /> }
+                        { gender === 'Male' && age >= 14 && age < 22 && <Image src={Male5Img} /> }
+                        { gender === 'Male' && age >= 22 && age < 30 && <Image src={Male6Img} /> }
+                        { gender === 'Male' && age >= 30 && age < 36 && <Image src={Male7Img} /> }
+                        { gender === 'Male' && age >= 36 && age < 44 && <Image src={Male8Img} /> }
+                        { gender === 'Male' && age >= 44 && age < 57 && <Image src={Male9Img} /> }
+                        { gender === 'Male' && age >= 57 && age < 75 && <Image src={Male10Img} /> }
+                        { gender === 'Male' && age >= 75 && <Image src={Male11Img} /> }
+
+                      </div>
+                    <Grid container spacing={2}>
+                      <Grid item>
+                        <FaBabyCarriage color='grey' size={25} />
+                      </Grid>
+                      <Grid item xs>
+                        <Slider min={1} max={100} value={age} onChange={handleAgeChange} aria-labelledby="continuous-slider" />
+                      </Grid>
+                      <Grid item>
+                        <FaBlind color='grey' size={25} />
+                      </Grid>
                     </Grid>
-                    <Grid item xs>
-                      <Slider min={1} max={100} value={value} onChange={handleChange} aria-labelledby="continuous-slider" />
-                    </Grid>
-                    <Grid item>
-                      <FaBlind color='grey' size={25} />
-                    </Grid>
-                  </Grid>
-                </div>
-              </MDBCardText>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-        <MDBCol md='4'>
-        </MDBCol>
-      </MDBRow>
-      <br/>
+                  </div>
+                </MDBCardText>
+              </MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+          <MDBCol md='4'>
+          </MDBCol>
+        </MDBRow>
+        <br/>
+      </form>
+      <ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={4000}
+      />
     </div>
   )
 }

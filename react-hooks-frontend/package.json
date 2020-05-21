@@ -46,5 +46,5 @@
   },
   "__Comment-On-Proxy1": "Using a proxy so that we can run the React front-end and the microservice independently,",
   "__Comment-On-Proxy2": "hence, we are then able to use the React developer hot-reloading feature.",
-  "proxy": "http://localhost:8080"
+  "proxy": "http://localhost:80"
 }

@@ -13,9 +13,9 @@ export default function Confirm({signupDetails}) {
           <MDBCard>
             <Image className="img-fluid" src={BannerImg} />
             <MDBCardBody>
-              <MDBCardTitle>In Progress..</MDBCardTitle>
+              <MDBCardTitle>👷 Under Construction 👷</MDBCardTitle>
               <MDBCardText>
-              This application is still under construction -- Check back later on for more updates!
+              This application is being built, as we speak..<br/>Please check back later on for more updates!
               </MDBCardText>
             </MDBCardBody>
           </MDBCard>

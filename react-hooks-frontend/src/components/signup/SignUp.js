@@ -31,17 +31,57 @@ function getSteps() {
 
 export default function SignUp() {
   const details = React.useRef()
+  const detailsRef = React.useRef()
+  const notificationRef = React.useRef()
+  const regionsRef = React.useRef()
   const [activeStep, setActiveStep] = React.useState(0)
   const classes = useStyles()
   const steps = getSteps()
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    doNextAction(activeStep)
   }
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
+
+  function doNextAction(step) {
+    switch (step) {
+      case WELCOME_PAGE:
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        break
+      case DETAILS_PAGE:
+        detailsRef.current.click()
+        break
+      case REGIONS_PAGE:
+        regionsRef.current.click()
+        break
+      case NOTIFICATION_PAGE:
+        notificationRef.current.click()
+        break
+      case CONFIRM_PAGE:
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        break
+      default:
+        throw new Error("Unknown Case")
+    }
+  }
+
+  function getStepContent(step) {
+    switch (step) {
+      case WELCOME_PAGE:
+        return <Welcome signupDetails={details} setActiveStep={setActiveStep} />
+      case DETAILS_PAGE:
+        return <Details validateRef={detailsRef} signupDetails={details} setActiveStep={setActiveStep} />
+      case REGIONS_PAGE:
+        return <Regions validateRef={regionsRef} signupDetails={details} setActiveStep={setActiveStep} />
+      case NOTIFICATION_PAGE:
+        return <Notification validateRef={notificationRef} signupDetails={details} setActiveStep={setActiveStep} />
+      case CONFIRM_PAGE:
+        return <Confirm signupDetails={details} />
+    }
+}
 
   return (
     <div className={classes.root}>
@@ -54,11 +94,7 @@ export default function SignUp() {
       </Stepper>
       <div>
 
-        { activeStep === WELCOME_PAGE && <Welcome signupDetails={details} /> }
-        { activeStep === DETAILS_PAGE && <Details signupDetails={details} /> }
-        { activeStep === REGIONS_PAGE && <Regions signupDetails={details} /> }
-        { activeStep === NOTIFICATION_PAGE && <Notification signupDetails={details} /> }
-        { activeStep === CONFIRM_PAGE && <Confirm signupDetails={details} /> }
+        { getStepContent(activeStep) }
 
         { activeStep === steps.length ? (
           <div>
