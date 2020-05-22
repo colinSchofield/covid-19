@@ -5,7 +5,7 @@ import BannerImg from '../../assets/images/Coronavirus-Banner.jpg'
 
 export default function Welcome() {
   return (
-    <div>
+    <>
       <MDBRow className='align-middle'>
         <MDBCol md='4'>
         </MDBCol>
@@ -27,6 +27,6 @@ export default function Welcome() {
       </MDBRow>
       <br/>
       <br/>
-    </div>
+    </>
   )
 }

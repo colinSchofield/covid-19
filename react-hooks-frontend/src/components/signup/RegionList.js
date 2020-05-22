@@ -2,22 +2,11 @@ import React from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import Checkbox from '@material-ui/core/Checkbox'
-import { getRegions } from '../../utils/api'
 import { Spinner } from 'react-bootstrap'
-
+import RegionsContext from '../../context/RegionsContext'
 
 export default function RegionList({checked, setChecked}) {
-  const [regionData, setRegionData] = React.useState(null)
-
-  React.useEffect(() => {
-    getRegions()
-      .then((regions) => {
-        setRegionData(regions)
-      })
-      .catch((exception) => {
-        console.log("Error was Caught!", exception)
-      })
-  }, [])
+  const regionsContext = React.useContext(RegionsContext)
 
   const handleToggle = (key) => () => {
     const currentIndex = checked.indexOf(key)
@@ -34,8 +23,7 @@ export default function RegionList({checked, setChecked}) {
 
   return (
     <List dense>
-      { !regionData && <Spinner animation="border" variant="success" /> }
-      { regionData && regionData.map((element) => {
+      { regionsContext.regionsData.map((element) => {
         const key = element.key
         return (
           <ListItem onClick={handleToggle(key)} key={key} button>

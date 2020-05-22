@@ -38,14 +38,14 @@ export default function Home() {
 
   return (
 
-    <div>
+    <>
       <Error error={error} />
 
       { !data && !error && <p><br/><br/><br/><br/></p> }
       { !data && !error && <Spinner animation="border" variant="success" /> }
 
       { data && <Table data={data} displayRegion={region} /> }
-    </div>
+    </>
 
   )
 }

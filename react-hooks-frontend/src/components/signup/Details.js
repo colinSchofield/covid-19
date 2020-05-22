@@ -37,6 +37,12 @@ export default function Welcome({validateRef, signupDetails, setActiveStep}) {
   const [gender, setGender] = React.useState('Male')
   const [age, setAge] = React.useState(7)
 
+  React.useEffect(() => {
+    setName(signupDetails.name)
+    setGender(signupDetails.gender)
+    setAge(signupDetails.age)
+  }, [signupDetails])
+
   const handleGender = (event, newGender) => {
     if (newGender !== null) {
       setGender(newGender)
@@ -51,6 +57,9 @@ export default function Welcome({validateRef, signupDetails, setActiveStep}) {
     e.preventDefault();
 
     if (name.length > 0) {
+      signupDetails.name = name
+      signupDetails.gender = gender
+      signupDetails.age = age
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
     } else {
       toast.warn(<span><MDBIcon icon="exclamation-triangle" /> Please give your Name</span>)
@@ -58,7 +67,7 @@ export default function Welcome({validateRef, signupDetails, setActiveStep}) {
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={handleSubmit}>
         <input type="submit" style={{display: "none"}} ref={submitRef} />
         <MDBRow>
@@ -142,6 +151,6 @@ export default function Welcome({validateRef, signupDetails, setActiveStep}) {
         newestOnTop={true}
         autoClose={4000}
       />
-    </div>
+    </>
   )
 }

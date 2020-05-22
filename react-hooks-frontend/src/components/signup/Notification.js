@@ -11,18 +11,25 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
   const [email, setEmail] = React.useState('')
   const [sms, setSms] = React.useState('')
 
+  React.useEffect(() => {
+    if (signupDetails.email !== null) {
+      setEmailChecked(true)
+      setEmail(signupDetails.email)
+    }
+    if (signupDetails.sms !== null) {
+      setSmsChecked(true)
+      setSms(signupDetails.sms)
+    }
+  }, [signupDetails])
+
   const toggleEmailChecked = () => {
     setEmailChecked((prev) => !prev)
-    if (emailChecked) {
-      setEmailChecked('')
-    }
+    setEmail('')
   }
 
   const toggleSmsChecked = () => {
     setSmsChecked((prev) => !prev)
-    if (smsChecked) {
-      setSmsChecked('')
-    }
+    setSms('')
   }
 
   function handleSubmit(e) {
@@ -32,12 +39,14 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
     } else if (smsChecked && sms.length === 0) {
       toast.warn(<span><MDBIcon icon="exclamation-triangle" /> Please provide your SMS</span>)
     } else {
+      signupDetails.email = email
+      signupDetails.sms = sms
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
   }
 
   return (
-    <div>
+    <>
      <form onSubmit={handleSubmit}>
         <input type="submit" style={{display: "none"}} ref={submitRef} />
         <MDBRow className='align-middle'>
@@ -76,6 +85,6 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
         newestOnTop={true}
         autoClose={4000}
       />
-    </div>
+    </>
   )
 }

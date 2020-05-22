@@ -44,7 +44,7 @@ export default function App({data, displayRegion}) {
 
   return (
 
-      <div>
+      <>
         <BootstrapTable
             selectRow={ selectRow }
             bootstrap4
@@ -58,6 +58,6 @@ export default function App({data, displayRegion}) {
             condensed
         />
         { detailsView && <TableDetails region={region} /> }
-      </div>
+      </>
     )
 }

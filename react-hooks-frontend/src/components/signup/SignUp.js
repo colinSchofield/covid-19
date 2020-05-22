@@ -30,11 +30,15 @@ function getSteps() {
 }
 
 export default function SignUp() {
-  const details = React.useRef()
+
+  // TODO For testing purposes only..
+  const json = { name: "bob", age: 12, gender: "Male", regions: ["Australia", "UK", "USA"], email: "bob@smob.com", sms: "(416)-825-1234"}
+
+  const [details, setDetails] = React.useState(json)
+  const [activeStep, setActiveStep] = React.useState(0)
   const detailsRef = React.useRef()
   const notificationRef = React.useRef()
   const regionsRef = React.useRef()
-  const [activeStep, setActiveStep] = React.useState(0)
   const classes = useStyles()
   const steps = getSteps()
 

@@ -6,8 +6,10 @@ import { Button, Modal } from 'react-bootstrap'
 import { getCovid19Monthly } from '../utils/api'
 import { isMobile } from '../utils/mobileResponsive'
 import Error from '../utils/Error'
+import RegionsContext from '../context/RegionsContext'
 
 export default function TableDetails({region}) {
+  const regionsContext = React.useContext(RegionsContext)
   const [error, setError] = React.useState(null)
   const [tableData, setTableData] = React.useState(null)
   const [show, setShow] = React.useState(false)
@@ -22,9 +24,14 @@ export default function TableDetails({region}) {
     region = null
   }
 
-  React.useEffect(() => {
+  const getFlag = (location) => {
+    const flag = regionsContext.regionsData.
+                  filter((region) => region.key === location)[0].flag
+    return region + " " + flag
+  }
 
-    setText(region)
+  React.useEffect(() => {
+    setText(getFlag(region))
     setShow(true)
     getCovid19Monthly(region)
       .then((stats) => {
@@ -103,7 +110,7 @@ export default function TableDetails({region}) {
   }
 
   return (
-    <div>
+    <>
       <Modal show={show} onHide={handleClose} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter"><span className="emoji">{text}</span></Modal.Title>
@@ -128,6 +135,6 @@ export default function TableDetails({region}) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </>
   )
 }

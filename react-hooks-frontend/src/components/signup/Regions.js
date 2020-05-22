@@ -7,10 +7,15 @@ export default function Regions({validateRef, signupDetails, setActiveStep}) {
   React.useImperativeHandle(validateRef, () => submitRef.current)
   const [checked, setChecked] = React.useState([])
 
+  React.useEffect(() => {
+    setChecked(signupDetails.regions)
+  }, [signupDetails])
+
   function handleSubmit(e) {
     e.preventDefault()
 
     if (checked.length > 0) {
+      signupDetails.regions = checked
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
     } else {
       toast.warn(<span><MDBIcon icon="exclamation-triangle" /> Please select a region</span>)
@@ -18,7 +23,7 @@ export default function Regions({validateRef, signupDetails, setActiveStep}) {
   }
 
   return (
-    <div>
+    <>
       <form onSubmit={handleSubmit}>
         <input type="submit" style={{display: "none"}} ref={submitRef} />
         <MDBRow className='align-middle'>
@@ -47,6 +52,6 @@ export default function Regions({validateRef, signupDetails, setActiveStep}) {
         newestOnTop={true}
         autoClose={4000}
       />
-    </div>
+    </>
   )
 }
