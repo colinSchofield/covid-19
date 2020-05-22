@@ -12,11 +12,11 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
   const [sms, setSms] = React.useState('')
 
   React.useEffect(() => {
-    if (signupDetails.email !== null) {
+    if (signupDetails.email !== '') {
       setEmailChecked(true)
       setEmail(signupDetails.email)
     }
-    if (signupDetails.sms !== null) {
+    if (signupDetails.sms !== '') {
       setSmsChecked(true)
       setSms(signupDetails.sms)
     }

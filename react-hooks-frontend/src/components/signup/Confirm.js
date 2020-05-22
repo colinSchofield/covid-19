@@ -2,6 +2,7 @@ import React from 'react'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact'
 import Image from 'react-bootstrap/Image'
 import BannerImg from '../../assets/images/Coronavirus-Banner.jpg'
+import MapLayout from './MapLayout'
 
 export default function Confirm({signupDetails}) {
   return (
@@ -18,32 +19,38 @@ export default function Confirm({signupDetails}) {
               Click <b>Finish</b> to save the following:
               <br/>
               <br/>
-              <table>
+              <table className="table table-striped table-hover table-bordered table-sm text-left">
                 <tr>
-                  <td className='font-weight-bold blue-text text-left'>Name</td>
-                  <td className='text-left'>{signupDetails.name}</td>
+                  <td className='font-weight-bold blue-text'>Name</td>
+                  <td>{signupDetails.name}</td>
                 </tr>
                 <tr>
-                  <td className='font-weight-bold blue-text text-left'>Age</td>
-                  <td className='text-left'>{signupDetails.age}</td>
+                  <td className='font-weight-bold blue-text'>Age</td>
+                  <td>{signupDetails.age}</td>
                 </tr>
                 <tr>
-                  <td className='font-weight-bold blue-text text-left'>Gender</td>
-                  <td className='text-left'>{signupDetails.gender}</td>
+                  <td className='font-weight-bold blue-text'>Gender</td>
+                  <td>{signupDetails.gender}</td>
                 </tr>
-                <tr>
-                  <td className='font-weight-bold blue-text text-left'>Notification Email</td>
-                  <td className='text-left'>{signupDetails.email}</td>
-                </tr>
-                <tr>
-                  <td className='font-weight-bold blue-text text-left'>Notification SMS</td>
-                  <td className='text-left'>{signupDetails.sms}</td>
-                </tr>
-                <tr>
-                  <td className='font-weight-bold blue-text text-left'>Regions</td>
-                  <td className='text-left'>{
 
-                    signupDetails.regions}</td>
+                { signupDetails.email !== '' &&
+                  <tr>
+                    <td className='font-weight-bold blue-text'>Notification via Email</td>
+                    <td>{signupDetails.email}</td>
+                  </tr>
+                }
+
+                { signupDetails.sms !== '' &&
+                  <tr>
+                    <td className='font-weight-bold blue-text'>Notification via SMS</td>
+                    <td>{signupDetails.sms}</td>
+                  </tr>
+                }
+                <tr>
+                  <td className='font-weight-bold blue-text'>Regions</td>
+                  <td>
+                    <MapLayout regions={signupDetails.regions} />
+                  </td>
                 </tr>
               </table>
               </MDBCardText>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Form, FormControl } from 'react-bootstrap'
-import DataContext from '../context/DataContext'
+import DataContext from '../../context/DataContext'
 
 export default function TableSearch() {
   const [ searchField, setSearchField ] = React.useState("")

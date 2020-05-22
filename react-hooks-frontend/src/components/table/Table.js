@@ -2,7 +2,7 @@ import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 import TableDetails from './TableDetails'
-import { useWindowDimensions, detectMobileChange } from '../utils/mobileResponsive'
+import { useWindowDimensions, detectMobileChange } from '../../utils/mobileResponsive'
 
 export default function App({data, displayRegion}) {
   const { width } = useWindowDimensions()

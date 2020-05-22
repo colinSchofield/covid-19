@@ -7,6 +7,10 @@
   vertical-align: text-bottom;
 }
 
+.emoji-align {
+  vertical-align: sub;
+}
+
 /* To enable a scrollable card for the region information */
 .scrollable {
   overflow-y: auto;

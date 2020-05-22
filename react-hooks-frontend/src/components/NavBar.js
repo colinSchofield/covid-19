@@ -1,6 +1,6 @@
 import React from 'react'
 import { Navbar, Nav } from 'react-bootstrap'
-import TableSearch from './TableSearch'
+import TableSearch from './table/TableSearch'
 
 export default function NavBar({ showSearch }) {
   return (

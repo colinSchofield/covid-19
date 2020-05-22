@@ -3,10 +3,10 @@ import { Line } from 'react-chartjs-2'
 import { MDBContainer } from 'mdbreact'
 import { Spinner } from 'react-bootstrap'
 import { Button, Modal } from 'react-bootstrap'
-import { getCovid19Monthly } from '../utils/api'
-import { isMobile } from '../utils/mobileResponsive'
-import Error from '../utils/Error'
-import RegionsContext from '../context/RegionsContext'
+import { getCovid19Monthly } from '../../utils/api'
+import { isMobile } from '../../utils/mobileResponsive'
+import Error from '../../utils/Error'
+import RegionsContext from '../../context/RegionsContext'
 
 export default function TableDetails({region}) {
   const regionsContext = React.useContext(RegionsContext)
@@ -25,9 +25,10 @@ export default function TableDetails({region}) {
   }
 
   const getFlag = (location) => {
-    const flag = regionsContext.regionsData.
-                  filter((region) => region.key === location)[0].flag
-    return region + " " + flag
+    const country = location.trim()
+    return regionsContext.regionsData.
+                  filter((region) => region.key === country).
+                  map((element) => country + " " + element.flag)
   }
 
   React.useEffect(() => {
