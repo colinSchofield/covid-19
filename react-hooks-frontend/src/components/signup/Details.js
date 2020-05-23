@@ -62,7 +62,7 @@ export default function Welcome({validateRef, signupDetails, setActiveStep}) {
       signupDetails.age = age
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
     } else {
-      toast.warn(<span><MDBIcon icon="exclamation-triangle" /> Please give your Name</span>)
+      toast.warn(<span><MDBIcon icon="exclamation-triangle" /> Please provide your Name</span>)
     }
   }
 

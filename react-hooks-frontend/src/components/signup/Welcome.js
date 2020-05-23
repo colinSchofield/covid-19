@@ -1,7 +1,7 @@
 import React from 'react'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact'
 import Image from 'react-bootstrap/Image'
-import BannerImg from '../../assets/images/Coronavirus-Banner.jpg'
+import BannerImg from '../../assets/images/Coronavirus-Banner3.jpg'
 
 export default function Welcome() {
   return (
@@ -15,9 +15,7 @@ export default function Welcome() {
             <MDBCardBody>
               <MDBCardTitle>Welcome</MDBCardTitle>
               <MDBCardText>
-              Please sign-up here, so you may receive notifications via email or SMS.
-              <br/><br/>
-              The information you are providing is <b>private</b> and will remain completely <b>confidential</b>. It shall not be used for advertising purposes.
+              Please register to join our Coronavirus community..
               </MDBCardText>
             </MDBCardBody>
           </MDBCard>
@@ -25,7 +23,6 @@ export default function Welcome() {
         <MDBCol md='4'>
         </MDBCol>
       </MDBRow>
-      <br/>
       <br/>
     </>
   )

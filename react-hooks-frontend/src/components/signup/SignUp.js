@@ -9,21 +9,14 @@ import Details from './Details'
 import Regions from './Regions'
 import Notification from './Notification'
 import Confirm from './Confirm'
+import RegisterUser from './RegisterUser'
 
 const WELCOME_PAGE = 0
 const DETAILS_PAGE = 1
 const REGIONS_PAGE = 2
 const NOTIFICATION_PAGE = 3
 const CONFIRM_PAGE = 4
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-  },
-  backButton: {
-    marginRight: theme.spacing(1),
-  },
-}))
+const REGISTER_USER_PAGE = 5
 
 function getSteps() {
   return ['Welcome', 'Details', 'Regions', 'Notification', 'Confirm']
@@ -31,15 +24,14 @@ function getSteps() {
 
 export default function SignUp() {
 
-  // TODO For testing purposes only..
-  const json = { name: "bob", age: 12, gender: "Male", regions: ["Australia", "UK", "USA"], email: "bob@smob.com", sms: "(416)-825-1234"}
+  // Default case
+  const json = { name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
 
   const [details, setDetails] = React.useState(json)
   const [activeStep, setActiveStep] = React.useState(0)
   const detailsRef = React.useRef()
   const notificationRef = React.useRef()
   const regionsRef = React.useRef()
-  const classes = useStyles()
   const steps = getSteps()
 
   const handleNext = () => {
@@ -68,7 +60,7 @@ export default function SignUp() {
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
         break
       default:
-        throw new Error("Unknown Case")
+        throw new Error("Unknown Action")
     }
   }
 
@@ -84,11 +76,15 @@ export default function SignUp() {
         return <Notification validateRef={notificationRef} signupDetails={details} setActiveStep={setActiveStep} />
       case CONFIRM_PAGE:
         return <Confirm signupDetails={details} />
+      case REGISTER_USER_PAGE:
+        return <RegisterUser signupDetails={details} />
+      default:
+        throw new Error("Unknown Step")
     }
 }
 
   return (
-    <div className={classes.root}>
+    <>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -100,17 +96,11 @@ export default function SignUp() {
 
         { getStepContent(activeStep) }
 
-        { activeStep === steps.length ? (
-          <div>
-        { /* TODO Add the Final page in here */}
-          </div>
-        ) : (
           <div>
             <div>
               <Button
                 disabled={activeStep === 0}
                 onClick={handleBack}
-                className={classes.backButton}
               >
                 Back
               </Button>
@@ -119,8 +109,7 @@ export default function SignUp() {
               </Button>
             </div>
           </div>
-        )}
       </div>
-    </div>
+    </>
   )
 }

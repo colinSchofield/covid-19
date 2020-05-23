@@ -1,7 +1,7 @@
 import React from 'react'
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact'
 import Image from 'react-bootstrap/Image'
-import BannerImg from '../../assets/images/Coronavirus-Banner.jpg'
+import BannerImg from '../../assets/images/Coronavirus-Banner5.jpg'
 import MapLayout from './MapLayout'
 
 export default function Confirm({signupDetails}) {
@@ -60,7 +60,6 @@ export default function Confirm({signupDetails}) {
         <MDBCol md='4'>
         </MDBCol>
       </MDBRow>
-      <br/>
       <br/>
     </>
   )

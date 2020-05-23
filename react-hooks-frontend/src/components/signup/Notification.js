@@ -57,7 +57,9 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
               <MDBCardBody>
                 <MDBCardTitle>Notification</MDBCardTitle>
                 <MDBCardText>
-
+                  Optionally, provide your email or SMS so we may provide you with news and updates.<br/><br/>This information shall remain <b>private</b> and will not be shared with anyone.
+                  <br/>
+                  <br/>
                   <FormControlLabel
                     control={<Switch checked={emailChecked} onChange={toggleEmailChecked} />}
                     label="Notification via Email"
@@ -77,7 +79,6 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
           <MDBCol md='4'>
           </MDBCol>
         </MDBRow>
-        <br/>
         <br/>
       </form>
       <ToastContainer

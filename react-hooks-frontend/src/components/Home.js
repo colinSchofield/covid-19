@@ -4,6 +4,7 @@ import { Spinner } from 'react-bootstrap'
 import Table from './table/Table'
 import DataContext from '../context/DataContext'
 import Error from '../utils/Error'
+import { MDBIcon, toast, ToastContainer } from 'mdbreact'
 
 export default function Home() {
   const [ data, setData ] = React.useState(null)
@@ -45,6 +46,12 @@ export default function Home() {
       { !data && !error && <Spinner animation="border" variant="success" /> }
 
       { data && <Table data={data} displayRegion={region} /> }
+
+    <ToastContainer
+      hideProgressBar={true}
+      newestOnTop={true}
+      autoClose={5000}
+    />
     </>
 
   )
