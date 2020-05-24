@@ -22,13 +22,11 @@ function getSteps() {
   return ['Welcome', 'Details', 'Regions', 'Notification', 'Confirm']
 }
 
-export default function SignUp() {
+export default function SignUp({userDetails}) {
 
-  // Default case
-  const json = { name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
-
-  const [details, setDetails] = React.useState(json)
-  const [activeStep, setActiveStep] = React.useState(0)
+  const [details, setDetails] = React.useState(userDetails)
+  const [activeStep, setActiveStep] =
+      React.useState(userDetails.name === '' ? WELCOME_PAGE : CONFIRM_PAGE)
   const detailsRef = React.useRef()
   const notificationRef = React.useRef()
   const regionsRef = React.useRef()
@@ -85,21 +83,25 @@ export default function SignUp() {
 
   return (
     <>
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
+      {  (activeStep !== CONFIRM_PAGE) &&
+        <Stepper activeStep={activeStep} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+      }
+
       <div>
+        {  (activeStep === CONFIRM_PAGE) && <br/> }
 
         { getStepContent(activeStep) }
 
           <div>
             <div>
               <Button
-                disabled={activeStep === 0}
+                disabled={activeStep === WELCOME_PAGE}
                 onClick={handleBack}
               >
                 Back

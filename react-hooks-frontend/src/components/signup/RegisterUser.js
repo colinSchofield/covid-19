@@ -9,7 +9,7 @@ export default function RegisterUser({signupDetails}) {
 
     // TODO Save user to backend
 
-    const id = window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Thanks for registering {signupDetails.name}! </span>), 800)
+    window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Thanks for registering {signupDetails.name}! </span>), 800)
     history.push("/")
   }, [])
 

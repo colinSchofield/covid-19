@@ -50,7 +50,7 @@ export default function Home() {
     <ToastContainer
       hideProgressBar={true}
       newestOnTop={true}
-      autoClose={5000}
+      autoClose={4000}
     />
     </>
 
