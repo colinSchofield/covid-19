@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("${covid19.api-version}")
-@Api("Endpoint for obtaining Covid-19 statistical information for use by the react frontend.")
+@Api(description="Endpoint for obtaining Covid-19 statistical information for use by the react frontend.")
 public class Covid19Controller {
 
     public final static Logger LOG = LoggerFactory.getLogger(Covid19Controller.class);
@@ -34,22 +34,20 @@ public class Covid19Controller {
 
     @GetMapping("/list/daily")
     @ApiOperation("Returns the statistical results of critical patients, daily deltas as well as the deaths caused by the disease over the past day.")
-    Mono<Daily> getCovid19DailySummary() {
-
+    public Mono<Daily> getCovid19DailySummary() {
         return rapidApiService.getCovid19DailySummary();
     }
 
     @GetMapping("/list/monthly/{region}")
     @ApiOperation("Returns the daily results for new cases and deaths over the past month for the chosen location.")
     @ApiParam("Region equates to a country in the world.")
-    Mono<TableDetails> getCovid19MonthlyHistory(@PathVariable String region) {
-
+    public Mono<TableDetails> getCovid19MonthlyHistory(@PathVariable String region) {
         return rapidApiService.getCovid19MonthlyHistory(region);
     }
 
     @GetMapping("/list/regions")
-    @ApiOperation("Returns the list of countries and their emoji flags.")
-    Mono<List<Region>> getListOfRegions() {
+    @ApiOperation("Returns the list of regions (i.e. countries) and their emoji flags.")
+    public Mono<List<Region>> getListOfRegions() {
         return flag.getRegionList();
     }
 }

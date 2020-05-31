@@ -16,7 +16,7 @@ export default function Confirm({signupDetails}) {
             <MDBCardBody>
               <MDBCardTitle>Confirmation</MDBCardTitle>
               <MDBCardText>
-              Click <b>Finish</b> to save the following:
+              Click <b>Finish</b> to save your details:
               <br/>
               <br/>
               <table className="table table-striped table-hover table-bordered table-sm text-left">

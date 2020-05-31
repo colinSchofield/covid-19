@@ -57,7 +57,7 @@ export default function Notification({validateRef, signupDetails, setActiveStep}
               <MDBCardBody>
                 <MDBCardTitle>Notification</MDBCardTitle>
                 <MDBCardText>
-                  Optionally, provide your email or SMS so we may provide you with news and updates.<br/><br/>This information shall remain <b>private</b> and will not be shared with anyone.
+                  Optionally, provide your email or SMS so we may send you news and updates.<br/><br/>This information shall remain <b>private</b> and will not be shared with anyone.
                   <br/>
                   <br/>
                   <FormControlLabel

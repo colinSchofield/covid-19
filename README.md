@@ -4,7 +4,7 @@
 
 You may view the application by following the link below:
 
-> [Medical Information Site](http://ec2-3-8-131-4.eu-west-2.compute.amazonaws.com)
+> [Medical Information Site](http://ec2-3-25-58-73.ap-southeast-2.compute.amazonaws.com)
 
 ### Synopsis
 The intention of this program is to allow users to connect via the web and retrieve daily statistical information on the 
@@ -25,6 +25,11 @@ together with front end HTML/CSS styling via [Bootstrap](https://getbootstrap.co
 The application itself has been hosted on AWS, running as an EC2 service off of a `t2.micro`, which is deployed into the 
 default VPC. Information on users who have signed up for the newsletter, is persisting using a 
 DynamoDb NoSQL database, as this provides the best possible performance, scalability, resilience and cost.
+
+###  Swagger Documentation
+ 
+ > [Covid-19 Restful API](http://ec2-3-25-58-73.ap-southeast-2.compute.amazonaws.com/swagger-ui.html)
+
  
  ### How to run the Application Locally
  You must have the following to run this application:

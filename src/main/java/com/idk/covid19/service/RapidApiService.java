@@ -7,7 +7,6 @@ import com.idk.covid19.model.weekly.DailyHistory;
 import com.idk.covid19.model.weekly.TableDetails;
 import com.idk.covid19.model.weekly.Weekly;
 import com.idk.covid19.util.CountryFlagEmojiUtil;
-import com.idk.covid19.web.Covid19Controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +48,13 @@ public class RapidApiService {
     public Mono<Daily> getCovid19DailySummary() {
 
         LOG.debug("About to obtain Covid-19 daily summary from Rapid API WebService");
-        Mono<Daily> response = summaryClient
+        return summaryClient
                 .get()
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Daily.class)
                 .map(this::filterOutNonCountryRegions)
-                .log(Covid19Controller.class.getName(), Level.FINE);
-
-        LOG.debug("Call to obtain the results has been submitted..");
-        return response;
+                .log(RapidApiService.class.getName(), Level.FINE);
     }
 
     private Daily filterOutNonCountryRegions(Daily daily) {
@@ -75,17 +71,14 @@ public class RapidApiService {
     public Mono<TableDetails> getCovid19MonthlyHistory(String region) {
 
         LOG.debug("About to obtain Covid-19 monthly history from Rapid API WebService");
-        Mono<TableDetails> response = historyClient
+        return historyClient
                 .get()
                 .uri("?region=" + region)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(Weekly.class)
                 .map(weekly -> getCalculateDeltasBetweenDays(weekly, region))
-                .log(Covid19Controller.class.getName(), Level.FINE);
-
-        LOG.debug("Call to obtain the results has been submitted..");
-        return response;
+                .log(RapidApiService.class.getName(), Level.FINE);
     }
 
     protected TableDetails getCalculateDeltasBetweenDays(Weekly weekly, String region) {

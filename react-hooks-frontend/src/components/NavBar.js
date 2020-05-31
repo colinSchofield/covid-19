@@ -11,7 +11,7 @@ export default function NavBar({ showSearch }) {
         <Nav className="mr-auto">
         <Nav.Link href="/">Home</Nav.Link>
 
-          { /* Note: the html extension -- this is to avoid requring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) */ }
+          { /* Note: the html extension -- this is to avoid requiring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) */ }
 
           <Nav.Link href="/about.html">About</Nav.Link>
           <Nav.Link href="/signup.html">Sign Up</Nav.Link>
