@@ -13,7 +13,7 @@ export default function Admin() {
           <MDBCard>
             <Image className="img-fluid" src={BannerImg} />
             <MDBCardBody>
-              <MDBCardTitle>👷 Under Construction 👷</MDBCardTitle>
+              <MDBCardTitle><span role="img" aria-labelledby="error">👷</span> Under Construction <span role="img" aria-labelledby="error">👷</span></MDBCardTitle>
               <MDBCardText>
               This application is being built, as we speak..<br/>Please check back later on for more updates!
               </MDBCardText>

@@ -4,12 +4,15 @@ import { Spinner } from 'react-bootstrap'
 import Table from './table/Table'
 import DataContext from '../context/DataContext'
 import Error from '../utils/Error'
-import { MDBIcon, toast, ToastContainer } from 'mdbreact'
+import { ToastContainer } from 'mdbreact'
+import { getUser } from '../utils/api'
+import { getCookie } from '../utils/cookies'
 
 export default function Home() {
   const [ data, setData ] = React.useState(null)
   const [ region, setRegion ] = React.useState(null)
   const [ error, setError ] = React.useState(null)
+  const [ highlightRegions, setHighlightRegions] = React.useState(null)
   const tableContext = React.useContext(DataContext)
 
   React.useEffect(() => {
@@ -21,6 +24,18 @@ export default function Home() {
       .catch((exception) => {
         console.log("Error was Caught!", exception)
         setError(exception.message)
+      })
+  }, [])
+
+  React.useEffect(() => {
+    if (getCookie() == null) {
+      return
+    }
+    getUser(getCookie())
+      .then((currentUser) => {
+        if (currentUser !== null) {
+          setHighlightRegions(currentUser.regions)
+        }
       })
   }, [])
 
@@ -45,7 +60,7 @@ export default function Home() {
       { !data && !error && <p><br/><br/><br/><br/></p> }
       { !data && !error && <Spinner animation="border" variant="success" /> }
 
-      { data && <Table data={data} displayRegion={region} /> }
+      { data && <Table data={data} displayRegion={region} highlightRegions={highlightRegions} /> }
 
     <ToastContainer
       hideProgressBar={true}

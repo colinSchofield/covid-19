@@ -26,9 +26,9 @@ export default function TableDetails({region}) {
 
   const getFlag = (location) => {
     const country = location.trim()
-    return regionsContext.regionsData.
-                  filter((region) => region.key === country).
-                  map((element) => country + " " + element.flag)
+    return regionsContext.regionsData
+                  .filter((region) => region.key === country)
+                  .map((element) => country + " " + element.flag)
   }
 
   React.useEffect(() => {

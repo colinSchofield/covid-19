@@ -20,11 +20,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public String createOrUpdateUser(User user) {
+    public User createOrUpdateUser(User user) {
         LOG.debug("About to create/update a user with properties: {}", user.toString());
         User response = userRepository.save(user);
         LOG.debug("User created/updated with id of {}", response.getId());
-        return response.getId();
+        return response;
     }
 
     public List<User> getListOfAllUsers() {

@@ -2,8 +2,9 @@ const setupHeaders = () => {
 
   const username = "user"
   const password = "user"
-  let headers = new Headers();
-  headers.append("Authorization", "Basic " + btoa(username + ":" + password));
+  let headers = new Headers()
+  headers.append("Authorization", "Basic " + btoa(username + ":" + password))
+  headers.append("Content-Type", "application/json")
   return headers
 }
 
@@ -61,5 +62,93 @@ export const getRegions = () => {
     .catch((error) => {
       console.error("Network Error", error)
       throw error
+    })
+}
+
+export const createUser = (jsonBody) => {
+
+  const url = "/api/1.0/user"
+
+  return fetch(url, {
+          method: "POST",
+          headers: setupHeaders(),
+          body: JSON.stringify(jsonBody)
+        })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        console.error("Network Error", response)
+        throw new Error("Network Error, please wait a while and try again: " + response.statusText)
+      }
+    })
+    .catch((error) => {
+      console.error("Network Error", error)
+      throw error
+    })
+}
+
+export const updateUser = (jsonBody) => {
+
+  const url = "/api/1.0/user/" + jsonBody.id
+
+  return fetch(url, {
+          method: "PUT",
+          headers: setupHeaders(),
+          body: JSON.stringify(jsonBody)
+        })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        console.error("Network Error", response)
+        throw new Error("Network Error, please wait a while and try again: " + response.statusText)
+      }
+    })
+    .catch((error) => {
+      console.error("Network Error", error)
+      throw error
+    })
+}
+
+export const getUser = (userId) => {
+  const url = "/api/1.0/user/" + userId
+
+  return fetch(url, {
+          method: "GET",
+          headers: setupHeaders()
+        })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        console.error("Network Error", response)
+        return null
+      }
+    })
+    .catch((error) => {
+      console.error("Network Error", error)
+      return null
+    })
+}
+
+export const deleteUser = (userId) => {
+  const url = "/api/1.0/user/" + userId
+
+  return fetch(url, {
+          method: "DELETE",
+          headers: setupHeaders()
+        })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        console.error("Network Error", response)
+        return null
+      }
+    })
+    .catch((error) => {
+      console.error("Network Error", error)
+      return null
     })
 }

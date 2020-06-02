@@ -11,12 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
 @RequestMapping("${covid19.api-version}")
-@Api(description="Endpoint for performing CRUD operations on the sign-up users of the Covid-19 application.")
+@Api(description = "Endpoint for performing CRUD operations on the sign-up users of the Covid-19 application.")
 public class UserController {
 
     public final static Logger LOG = LoggerFactory.getLogger(UserController.class);
@@ -25,15 +24,15 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    @ApiOperation("Returns the id of the newly created user, given that the parameters received in the submitted POST are valid.")
-    public String createUser(@RequestBody @Valid User user) {
+    @ApiOperation("Returns the id of the newly created user, within the user object, given that the parameters received in the submitted POST are valid.")
+    public User createUser(@RequestBody @Valid User user) {
         return userService.createOrUpdateUser(user);
     }
 
     @PutMapping("/user/{id}")
-    @ApiOperation("Returns the id of the updated user, given that the parameters received in the submitted PUT are valid.")
+    @ApiOperation("Returns the id of the updated user, within the user object, given that the parameters received in the submitted PUT are valid.")
     @ApiParam("id represents the primary key of the given user and equates to its DynamoDb Partition key.")
-    public String updateUser(@RequestBody @Valid User user, @PathVariable String id) {
+    public User updateUser(@RequestBody @Valid User user, @PathVariable String id) {
         user.setId(id);
         return userService.createOrUpdateUser(user);
     }

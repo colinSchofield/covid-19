@@ -16,9 +16,6 @@ export default function App() {
   const tableContext = { tableData: tableData, updateTable: (data) => { setTableData(data) } }
   const [ regionsData, setRegionsData ] = React.useState(null)
   const regionsContext = { regionsData: regionsData, updateRegions: (regions) => { setRegionsData(regions) } }
-  // Default case
-  const json = { name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
-  const [ userDetails, setUserDetails ] = React.useState(json)
 
   React.useEffect(() => {
     setShowSearch(window.location.href.endsWith('/'))
@@ -44,7 +41,7 @@ export default function App() {
                 { /* Note: the html extension -- this is to avoid requiring SSR with Tomcat (i.e. each file is a COPY of the minified index.html file) */ }
               <Route exact path='/' component={Home} />
               <Route path='/about.html' component={About} />
-              <Route path='/signup.html' render={(props) => <SignUp {...props} userDetails={userDetails} />} />
+              <Route path='/signup.html' component={SignUp} />
               <Route path='/admin.html' component={Admin} />
             </Switch>
           </Router>

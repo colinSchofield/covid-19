@@ -1,5 +1,4 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import Stepper from '@material-ui/core/Stepper'
 import Step from '@material-ui/core/Step'
 import StepLabel from '@material-ui/core/StepLabel'
@@ -10,6 +9,9 @@ import Regions from './Regions'
 import Notification from './Notification'
 import Confirm from './Confirm'
 import RegisterUser from './RegisterUser'
+import EditDeleteUser from './EditDeleteUser'
+import { getCookie } from '../../utils/cookies'
+import { getUser } from '../../utils/api'
 
 const WELCOME_PAGE = 0
 const DETAILS_PAGE = 1
@@ -17,20 +19,33 @@ const REGIONS_PAGE = 2
 const NOTIFICATION_PAGE = 3
 const CONFIRM_PAGE = 4
 const REGISTER_USER_PAGE = 5
+const EDIT_DELETE_USER = 6
 
 function getSteps() {
   return ['Welcome', 'Details', 'Regions', 'Notification', 'Confirm']
 }
 
-export default function SignUp({userDetails}) {
-
-  const [details, setDetails] = React.useState(userDetails)
-  const [activeStep, setActiveStep] =
-      React.useState(userDetails.name === '' ? WELCOME_PAGE : CONFIRM_PAGE)
+export default function SignUp() {
+  const defaultUserDetails = { name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
+  const [details, setDetails] = React.useState(defaultUserDetails)
+  const [activeStep, setActiveStep] = React.useState(WELCOME_PAGE)
   const detailsRef = React.useRef()
   const notificationRef = React.useRef()
   const regionsRef = React.useRef()
   const steps = getSteps()
+
+  React.useEffect(() => {
+    if (getCookie() == null) {
+      return
+    }
+    getUser(getCookie())
+      .then((currentUser) => {
+        if (currentUser !== null) {
+          setDetails(currentUser)
+          setActiveStep(EDIT_DELETE_USER)
+        }
+      })
+  }, [])
 
   const handleNext = () => {
     doNextAction(activeStep)
@@ -76,6 +91,8 @@ export default function SignUp({userDetails}) {
         return <Confirm signupDetails={details} />
       case REGISTER_USER_PAGE:
         return <RegisterUser signupDetails={details} />
+      case EDIT_DELETE_USER:
+        return <EditDeleteUser signupDetails={details} setActiveStep={setActiveStep} />
       default:
         throw new Error("Unknown Step")
     }
@@ -83,7 +100,7 @@ export default function SignUp({userDetails}) {
 
   return (
     <>
-      {  (activeStep !== CONFIRM_PAGE) &&
+      {  (activeStep < CONFIRM_PAGE) &&
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
@@ -94,10 +111,11 @@ export default function SignUp({userDetails}) {
       }
 
       <div>
-        {  (activeStep === CONFIRM_PAGE) && <br/> }
+        {  (activeStep >= CONFIRM_PAGE) && <br/> }
 
         { getStepContent(activeStep) }
 
+        { activeStep < REGISTER_USER_PAGE &&
           <div>
             <div>
               <Button
@@ -111,6 +129,7 @@ export default function SignUp({userDetails}) {
               </Button>
             </div>
           </div>
+        }
       </div>
     </>
   )

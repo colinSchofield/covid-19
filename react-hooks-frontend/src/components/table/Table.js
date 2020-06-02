@@ -4,7 +4,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator'
 import TableDetails from './TableDetails'
 import { useWindowDimensions, detectMobileChange } from '../../utils/mobileResponsive'
 
-export default function App({data, displayRegion}) {
+export default function Table({data, displayRegion, highlightRegions}) {
   const { width } = useWindowDimensions()
   const [columns, setColumns] = React.useState(detectMobileChange())
   const [detailsView, setDetailsView] = React.useState(false)
@@ -31,6 +31,16 @@ export default function App({data, displayRegion}) {
     }
   }
 
+  const rowHighlight = (row, rowIndex) => {
+    const style = {}
+
+    if (highlightRegions !== null && highlightRegions.includes(row.country)) {
+      style.backgroundColor = '#c8e6c9'
+    }
+
+    return style
+  }
+
   React.useEffect(() => {
     setColumns(detectMobileChange())
   }, [width])
@@ -51,6 +61,7 @@ export default function App({data, displayRegion}) {
             keyField="country"
             data={ data }
             columns={ columns }
+            rowStyle={ rowHighlight }
             defaultSorted={ defaultSorted }
             pagination={ paginationFactory() }
             striped

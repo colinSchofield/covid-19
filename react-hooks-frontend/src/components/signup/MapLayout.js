@@ -6,9 +6,13 @@ export default function Confirm({regions}) {
 
   const getFlag = (location) => {
     const country = location.trim()
-    return regionsContext.regionsData.
-                  filter((region) => region.key === country).
-                  map((element) => element.flag)
+    if (regionsContext.regionsData === null) {
+      return ""
+    }
+
+    return regionsContext.regionsData
+                  .filter((region) => region.key === country)
+                  .map((element) => element.flag)
   }
 
   return (
