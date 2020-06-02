@@ -15,7 +15,7 @@ export default function RegisterUser({signupDetails}) {
     if (signupDetails.email === null || signupDetails.email.length === 0) {
       signupDetails.email = null
     }
-    if (signupDetails.email === null || signupDetails.sms.length === 0) {
+    if (signupDetails.sms === null || signupDetails.sms.length === 0) {
       signupDetails.sms = null
     }
 
@@ -49,7 +49,7 @@ export default function RegisterUser({signupDetails}) {
   return (
     <>
       <Error error={error} />
-      { !error && <p><br/><br/><br/><br/></p> }
+      { !error && <p><br/><br/><br/></p> }
       { !error && <Spinner animation="border" variant="success" /> }
     </>
   )

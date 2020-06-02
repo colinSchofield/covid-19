@@ -10,6 +10,7 @@ import Notification from './Notification'
 import Confirm from './Confirm'
 import RegisterUser from './RegisterUser'
 import EditDeleteUser from './EditDeleteUser'
+import LoadUser from './LoadUser'
 import { getCookie } from '../../utils/cookies'
 import { getUser } from '../../utils/api'
 
@@ -20,15 +21,16 @@ const NOTIFICATION_PAGE = 3
 const CONFIRM_PAGE = 4
 const REGISTER_USER_PAGE = 5
 const EDIT_DELETE_USER = 6
+const LOAD_USER = 7
 
 function getSteps() {
   return ['Welcome', 'Details', 'Regions', 'Notification', 'Confirm']
 }
 
 export default function SignUp() {
-  const defaultUserDetails = { name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
+  const defaultUserDetails = { id: null, name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
   const [details, setDetails] = React.useState(defaultUserDetails)
-  const [activeStep, setActiveStep] = React.useState(WELCOME_PAGE)
+  const [activeStep, setActiveStep] = React.useState(LOAD_USER)
   const detailsRef = React.useRef()
   const notificationRef = React.useRef()
   const regionsRef = React.useRef()
@@ -36,6 +38,7 @@ export default function SignUp() {
 
   React.useEffect(() => {
     if (getCookie() == null) {
+      setActiveStep(WELCOME_PAGE)
       return
     }
     getUser(getCookie())
@@ -43,7 +46,13 @@ export default function SignUp() {
         if (currentUser !== null) {
           setDetails(currentUser)
           setActiveStep(EDIT_DELETE_USER)
+        } else {
+          setActiveStep(WELCOME_PAGE)
         }
+      })
+      .catch((exception) => {
+        console.log("Error was Caught!", exception)
+        setActiveStep(WELCOME_PAGE)
       })
   }, [])
 
@@ -93,6 +102,8 @@ export default function SignUp() {
         return <RegisterUser signupDetails={details} />
       case EDIT_DELETE_USER:
         return <EditDeleteUser signupDetails={details} setActiveStep={setActiveStep} />
+      case LOAD_USER:
+        return <LoadUser />
       default:
         throw new Error("Unknown Step")
     }

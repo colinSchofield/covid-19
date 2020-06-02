@@ -42,9 +42,9 @@ export default function EditDeleteUser({signupDetails, setActiveStep}) {
     <>
       <Modal show={showDialog} onHide={handleCloseDialog} animation={true}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete your Coronavirus details?</Modal.Title>
+          <Modal.Title>Delete Coronavirus details?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>We will be sad to see you go..</Modal.Body>
+        <Modal.Body>Sorry to see you go..</Modal.Body>
         <Modal.Footer>
           <Button variant="contained" onClick={handleCloseDialog}>
             Cancel
