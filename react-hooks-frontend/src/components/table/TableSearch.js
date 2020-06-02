@@ -1,6 +1,7 @@
 import React from 'react'
-import { Button, Form, FormControl } from 'react-bootstrap'
+import { Form, FormControl } from 'react-bootstrap'
 import DataContext from '../../context/DataContext'
+import Button from '@material-ui/core/Button'
 
 export default function TableSearch() {
   const [ searchField, setSearchField ] = React.useState("")
@@ -41,7 +42,7 @@ export default function TableSearch() {
       <FormControl id="searchField" type="text" disabled
         placeholder="Country Name" className="mr-sm-2"
         value={searchField} onChange={filterTableBySearchField} ref={searchFieldRef} />
-      <Button variant="outline-success" onClick={handleSubmit}>Search</Button>
+      <Button variant="outlined" color="primary" onClick={handleSubmit}>Search</Button>
     </Form>
   )
 }
