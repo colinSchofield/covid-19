@@ -7,6 +7,14 @@ public class Deaths {
     private String newDeaths;
     private Integer total;
 
+    public Deaths() {
+    }
+
+    public Deaths(String newDeaths, Integer total) {
+        this.newDeaths = newDeaths;
+        this.total = total;
+    }
+
     public String getNewDeaths() {
         return newDeaths;
     }

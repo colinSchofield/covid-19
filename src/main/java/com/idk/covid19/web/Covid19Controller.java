@@ -11,10 +11,8 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -34,6 +32,7 @@ public class Covid19Controller {
 
     @GetMapping("/list/daily")
     @ApiOperation("Returns the statistical results of critical patients, daily deltas as well as the deaths caused by the disease over the past day.")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<Daily> getCovid19DailySummary() {
         return rapidApiService.getCovid19DailySummary();
     }
@@ -41,12 +40,14 @@ public class Covid19Controller {
     @GetMapping("/list/monthly/{region}")
     @ApiOperation("Returns the daily results for new cases and deaths over the past month for the chosen location.")
     @ApiParam("Region equates to a country in the world.")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<TableDetails> getCovid19MonthlyHistory(@PathVariable String region) {
         return rapidApiService.getCovid19MonthlyHistory(region);
     }
 
     @GetMapping("/list/regions")
     @ApiOperation("Returns the list of regions (i.e. countries) and their emoji flags.")
+    @ResponseStatus(HttpStatus.OK)
     public Mono<List<Region>> getListOfRegions() {
         return flag.getRegionList();
     }

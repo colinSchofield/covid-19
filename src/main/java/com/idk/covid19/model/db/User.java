@@ -7,6 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import javax.validation.constraints.*;
 import java.util.List;
+import java.util.Objects;
 
 @DynamoDBTable(tableName = "User")
 public class User {
@@ -116,5 +117,24 @@ public class User {
                 ", email='" + email + '\'' +
                 ", sms='" + sms + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(age, user.age) &&
+                Objects.equals(gender, user.gender) &&
+                Objects.equals(regions, user.regions) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(sms, user.sms);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age, gender, regions, email, sms);
     }
 }

@@ -1,0 +1,32 @@
+spring:
+  cache:
+    cache-names: rapidApi
+    caffeine:
+      spec: maximumSize=500,expireAfterAccess=40m
+  security:
+    user:
+      name: user
+      password: password
+
+server:
+  port: 80
+
+logging:
+  level:
+    org.springframework: DEBUG
+    com.idk: DEBUG
+
+covid19:
+  api-version: /api/1.0
+  exclude-region: All|Asia|Europe|North-America|Africa|South-America|Diamond-Princess-|.*ccedil.*|.*eacute.*
+  admin-access:
+    userName: user
+    userPassword: user
+    adminName: admin
+    adminPassword: admin
+  rapid-api:
+    api-host: covid-193.p.rapidapi.com
+    api-host2: coronavirus-map.p.rapidapi.com
+    api-key: cb1f09fd7dmsh35f7dd8afd27dfdp191e0cjsnca765ccf022a
+    covid19-summary: https://covid-193.p.rapidapi.com/statistics
+    weekly-history: https://coronavirus-map.p.rapidapi.com/v1/spots/month

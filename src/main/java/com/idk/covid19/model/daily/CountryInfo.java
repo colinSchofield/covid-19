@@ -6,8 +6,20 @@ public class CountryInfo {
     private Cases cases;
     private Deaths deaths;
     private Tests tests;
-    private String day;     // TODO Convert to Date & Timestamp
+    private String day;
     private String time;
+
+    public CountryInfo() {
+    }
+
+    public CountryInfo(String country, Cases cases, Deaths deaths, Tests tests, String day, String time) {
+        this.country = country;
+        this.cases = cases;
+        this.deaths = deaths;
+        this.tests = tests;
+        this.day = day;
+        this.time = time;
+    }
 
     public String getCountry() {
         return country;

@@ -77,7 +77,7 @@ export default function EditDeleteUser({signupDetails, setActiveStep}) {
                   <td>{signupDetails.age}</td>
                 </tr>
                 <tr>
-                  <td className='font-weight-bold blue-text'>Gender</td>
+                  <td className='font-weight-bold blue-text'>Identify as</td>
                   <td>{signupDetails.gender}</td>
                 </tr>
 

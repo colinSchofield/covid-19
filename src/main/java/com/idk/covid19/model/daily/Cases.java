@@ -12,6 +12,17 @@ public class Cases {
     private Integer recovered;
     private Integer total;
 
+    public Cases() {
+    }
+
+    public Cases(String newCases, Integer active, Integer critical, Integer recovered, Integer total) {
+        this.newCases = newCases;
+        this.active = active;
+        this.critical = critical;
+        this.recovered = recovered;
+        this.total = total;
+    }
+
     public String getNewCases() {
         return newCases;
     }

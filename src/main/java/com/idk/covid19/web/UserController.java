@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +26,7 @@ public class UserController {
 
     @PostMapping("/user")
     @ApiOperation("Returns the id of the newly created user, within the user object, given that the parameters received in the submitted POST are valid.")
+    @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@RequestBody @Valid User user) {
         return userService.createOrUpdateUser(user);
     }
@@ -32,6 +34,7 @@ public class UserController {
     @PutMapping("/user/{id}")
     @ApiOperation("Returns the id of the updated user, within the user object, given that the parameters received in the submitted PUT are valid.")
     @ApiParam("id represents the primary key of the given user and equates to its DynamoDb Partition key.")
+    @ResponseStatus(HttpStatus.OK)
     public User updateUser(@RequestBody @Valid User user, @PathVariable String id) {
         user.setId(id);
         return userService.createOrUpdateUser(user);
@@ -39,6 +42,7 @@ public class UserController {
 
     @GetMapping("/user/list")
     @ApiOperation("Returns all the user's currently saved in the Covid-19 application.")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getListOfAllUsers() {
         return userService.getListOfAllUsers();
     }
@@ -46,6 +50,7 @@ public class UserController {
     @GetMapping("/user/{id}")
     @ApiOperation("Returns the user associated with the provided key stored in the Covid-19 application.")
     @ApiParam("id represents the primary key of the given user and equates to its DynamoDb Partition key.")
+    @ResponseStatus(HttpStatus.OK)
     public User getUser(@PathVariable String id) {
         return userService.getUser(id);
     }
@@ -53,6 +58,7 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     @ApiOperation("Removes the user associated with the provided key, from the Covid-19 application database.")
     @ApiParam("id represents the primary key of the given user and equates to its DynamoDb Partition key.")
+    @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
     }

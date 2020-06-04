@@ -105,9 +105,8 @@ export default function Welcome({validateRef, signupDetails, setActiveStep}) {
                         { gender === 'Female' && age >= 10 && age < 14 && <Image src={Female4Img} /> }
                         { gender === 'Female' && age >= 14 && age < 22 && <Image src={Female5Img} /> }
                         { gender === 'Female' && age >= 22 && age < 30 && <Image src={Female6Img} /> }
-                        { gender === 'Female' && age >= 30 && age < 36 && <Image src={Female7Img} /> }
-                        { gender === 'Female' && age >= 36 && age < 44 && <Image src={Female8Img} /> }
-                        { gender === 'Female' && age >= 44 && age < 52 && <Image src={Female9Img} /> }
+                        { gender === 'Female' && age >= 30 && age < 42 && <Image src={Female7Img} /> }
+                        { gender === 'Female' && age >= 42 && age < 52 && <Image src={Female9Img} /> }
                         { gender === 'Female' && age >= 52 && age < 60 && <Image src={Female10Img} /> }
                         { gender === 'Female' && age >= 60 && age < 85 && <Image src={Female11Img} /> }
                         { gender === 'Female' && age >= 85 && <Image src={Female12Img} /> }

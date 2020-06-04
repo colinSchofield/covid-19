@@ -6,6 +6,16 @@ public class TableDetails {
     private Integer[] newCases;
     private Integer[] deaths;
 
+    public TableDetails() {
+    }
+
+    public TableDetails(String flag, String[] labels, Integer[] newCases, Integer[] deaths) {
+        this.flag = flag;
+        this.labels = labels;
+        this.newCases = newCases;
+        this.deaths = deaths;
+    }
+
     public String[] getLabels() {
         return labels;
     }
