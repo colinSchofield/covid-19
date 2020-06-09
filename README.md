@@ -40,7 +40,7 @@ DynamoDb NoSQL database, as this provides the best possible performance, scalabi
  ```
  1. mvn clean install
  2. mvn spring-boot:run
- 3. Then connect with your browser to http://loalhost
+ 3. Then connect with your browser to http://localhost
  ```
 
 ### About the Developer
