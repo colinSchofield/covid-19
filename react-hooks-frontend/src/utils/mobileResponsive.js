@@ -35,7 +35,15 @@ export const detectMobileChange = () => {
     {
       dataField: 'cases.new',
       text: 'New Cases',
-      sort: true
+      sort: true,
+      sortFunc: (a, b, order, dataField) => {
+        const aAsInt = (a.length > 0) ? a.substr(1) : a
+        const bAsInt = (b.length > 0) ? b.substr(1) : b
+        if (order === 'asc') {
+          return aAsInt - bAsInt
+        }
+        return bAsInt - aAsInt
+      }
     },
     {
       dataField: 'deaths.total',
@@ -45,7 +53,15 @@ export const detectMobileChange = () => {
     {
       dataField: 'deaths.new',
       text: 'New Deaths',
-      sort: true
+      sort: true,
+      sortFunc: (a, b, order, dataField) => {
+        const aAsInt = (a.length > 0) ? a.substr(1) : a
+        const bAsInt = (b.length > 0) ? b.substr(1) : b
+        if (order === 'asc') {
+          return aAsInt - bAsInt
+        }
+        return bAsInt - aAsInt
+      }
     }
   ]
 

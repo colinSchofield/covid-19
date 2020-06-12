@@ -1,13 +1,17 @@
 package com.idk.covid19.service;
 
 import com.idk.covid19.exception.NotFoundException;
+import com.idk.covid19.model.db.DecoratedUser;
 import com.idk.covid19.model.db.User;
 import com.idk.covid19.model.db.repository.UserRepository;
+import com.idk.covid19.util.CountryFlagEmojiUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -20,6 +24,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private CountryFlagEmojiUtil flags;
+
     public User createOrUpdateUser(User user) {
         LOG.debug("About to create/update a user with properties: {}", user.toString());
         User response = userRepository.save(user);
@@ -27,10 +34,25 @@ public class UserService {
         return response;
     }
 
-    public List<User> getListOfAllUsers() {
+    public List<DecoratedUser> getListOfAllUsers() {
         return StreamSupport.
                 stream(userRepository.findAll().spliterator(), false)
+                .map(this::decorateUser)
+                .sorted(Comparator.comparing(DecoratedUser::getName))
                 .collect(Collectors.toList());
+    }
+
+    private DecoratedUser decorateUser(User user) {
+        String regionList = user.getRegions()
+                .stream()
+                .reduce("", (acc, combo) ->
+                {
+                    return acc + " " + flags.getEmojiForCountry(combo);
+                });
+        String contact = (StringUtils.isNotEmpty(user.getEmail()) ? "💌" : "") + " " +
+                (StringUtils.isNotEmpty(user.getSms()) ? "💬" : "");
+
+        return new DecoratedUser(user, regionList, contact);
     }
 
     public User getUser(String id) {

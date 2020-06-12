@@ -12,7 +12,7 @@ export default function Table({data, displayRegion, highlightRegions}) {
 
   const defaultSorted = [
     {
-      dataField: 'deaths.total',
+      dataField: 'cases.new',
       order: 'desc'
     }
   ]

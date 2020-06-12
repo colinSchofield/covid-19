@@ -1,8 +1,10 @@
 package com.idk.covid19.service;
 
 import com.idk.covid19.exception.NotFoundException;
+import com.idk.covid19.model.db.DecoratedUser;
 import com.idk.covid19.model.db.User;
 import com.idk.covid19.model.db.repository.UserRepository;
+import com.idk.covid19.util.CountryFlagEmojiUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +26,9 @@ class UserServiceTest {
     @Autowired
     @InjectMocks
     private UserService userService;
+
+    @Mock
+    private CountryFlagEmojiUtil flags;
 
     @Mock
     private UserRepository userRepository;
@@ -60,16 +65,18 @@ class UserServiceTest {
     public void testListOfAllUsers() {
         // Given
         User user1 = new User("123", "Robert Smith", 36, "Male", Arrays.asList("Australia"), "rob.smith@hotmail.com", null);
+        DecoratedUser dUser1 = new DecoratedUser(user1, "", "");
         User user2 = new User("124", "Anne Smith", 28, "Male", Arrays.asList("Canada"), null, null);
-        User[] array = {user1, user2};
+        DecoratedUser dUser2 = new DecoratedUser(user2, "", "");
+        User[] array = {dUser1, dUser2};
         Iterable<User> iterable = Arrays.stream(array).collect(Collectors.toList());
         when(userRepository.findAll()).thenReturn(iterable);
         // When
-        List<User> list = userService.getListOfAllUsers();
+        List<DecoratedUser> list =  userService.getListOfAllUsers();
         //Then
         assertNotNull(list);
         assertEquals(2, list.size());
-        assertTrue(list.contains(user1) && list.contains(user2), "Contains both user1 and user2");
+        assertTrue(list.contains(dUser1) && list.contains(dUser2), "Contains both decoracted user1 and user2");
     }
 
     @Test

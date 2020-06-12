@@ -148,8 +148,8 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Kazakhstan", "🇰🇿");
         emojiRegionMapper.put("Kenya", "🇰🇪");
         emojiRegionMapper.put("Kiribati", "🇰🇮");
-        emojiRegionMapper.put("North-Korea", "🇰🇵");
-        emojiRegionMapper.put("South-Korea", "🇰🇷");
+        emojiRegionMapper.put("N-Korea", "🇰🇵");
+        emojiRegionMapper.put("S-Korea", "🇰🇷");
         emojiRegionMapper.put("Kosovo", "🇽🇰");
         emojiRegionMapper.put("Kuwait", "🇰🇼");
         emojiRegionMapper.put("Kyrgyzstan", "🇰🇬");

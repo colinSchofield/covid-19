@@ -1,5 +1,6 @@
 package com.idk.covid19.web;
 
+import com.idk.covid19.model.db.DecoratedUser;
 import com.idk.covid19.model.db.User;
 import com.idk.covid19.service.UserService;
 import io.swagger.annotations.Api;
@@ -43,7 +44,7 @@ public class UserController {
     @GetMapping("/user/list")
     @ApiOperation("Returns all the user's currently saved in the Covid-19 application.")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getListOfAllUsers() {
+    public List<DecoratedUser> getListOfAllUsers() {
         return userService.getListOfAllUsers();
     }
 

@@ -152,3 +152,24 @@ export const deleteUser = (userId) => {
       return null
     })
 }
+
+export const getUserList = () => {
+  const url = "/api/1.0/user/list"
+
+  return fetch(url, {
+          method: "GET",
+          headers: setupHeaders()
+        })
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      } else {
+        console.error("Network Error", response)
+        return null
+      }
+    })
+    .catch((error) => {
+      console.error("Network Error", error)
+      return null
+    })
+}

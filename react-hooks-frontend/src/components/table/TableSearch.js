@@ -21,7 +21,7 @@ export default function TableSearch() {
 
     setSearchField(event.target.value)
     const filteredTable = fullTable.current.filter((element) =>
-        element.country.toLowerCase().startsWith(event.target.value.toLowerCase()))
+        element.country.toLowerCase().includes(event.target.value.toLowerCase()))
 
     tableContext.updateTable({data: filteredTable, countrySelected: null})
   }
