@@ -45,8 +45,6 @@ export default function UserTable({data}) {
     clickToSelect: true,
     onSelect: (row, isSelect, rowIndex, e) => {
       // TODO Select a row for editing..
-      debugger
-      console.log("BANG!")
     }
   }
 

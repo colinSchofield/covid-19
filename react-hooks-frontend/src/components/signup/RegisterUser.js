@@ -2,7 +2,7 @@ import React from 'react'
 import { MDBIcon, toast } from 'mdbreact'
 import { useHistory } from "react-router-dom"
 import { createUser, updateUser } from '../../utils/api'
-import { setCookie } from '../../utils/cookies'
+import { setUserIdCookie } from '../../utils/cookies'
 import { Spinner } from 'react-bootstrap'
 import Error from '../../utils/Error'
 
@@ -22,7 +22,7 @@ export default function RegisterUser({signupDetails}) {
     if (signupDetails.id === null) {
       createUser(signupDetails)
         .then((response) => {
-          setCookie(response.id)
+          setUserIdCookie(response.id)
           window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Thanks for registering {signupDetails.name}! </span>), 800)
           history.push("/")
 
@@ -34,7 +34,7 @@ export default function RegisterUser({signupDetails}) {
       } else {
         updateUser(signupDetails)
           .then((response) => {
-            setCookie(response.id)
+            setUserIdCookie(response.id)
             window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Details were updated {signupDetails.name}! </span>), 800)
             history.push("/")
 

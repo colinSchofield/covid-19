@@ -13,7 +13,7 @@ import Female4Img from '../../assets/images/signup/female-4.jpg'
 import Female5Img from '../../assets/images/signup/female-5.jpg'
 import Female6Img from '../../assets/images/signup/female-6.jpg'
 import Female7Img from '../../assets/images/signup/female-7.jpg'
-import Female8Img from '../../assets/images/signup/female-8.jpg'
+// import Female8Img from '../../assets/images/signup/female-8.jpg'  -- removed as I am mindful of feminism
 import Female9Img from '../../assets/images/signup/female-9.jpg'
 import Female10Img from '../../assets/images/signup/female-10.jpg'
 import Female11Img from '../../assets/images/signup/female-11.jpg'

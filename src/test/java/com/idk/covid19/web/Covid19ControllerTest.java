@@ -105,8 +105,8 @@ class Covid19ControllerTest {
     @Test
     public void testGetListOfRegions() {
         // Given
-        Region region1 = new Region("Australia", "Australia", "A");
-        Region region2 = new Region("New-Zealand", "New Zealand", "N");
+        Region region1 = new Region("Australia", "Australia", "A", "AU");
+        Region region2 = new Region("New-Zealand", "New Zealand", "N", "NZ");
         List<Region> regions = Arrays.asList(region1, region2);
         // When
         webClient.get()

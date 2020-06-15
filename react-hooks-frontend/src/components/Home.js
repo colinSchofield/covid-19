@@ -6,7 +6,8 @@ import DataContext from '../context/DataContext'
 import Error from '../utils/Error'
 import { ToastContainer } from 'mdbreact'
 import { getUser } from '../utils/api'
-import { getCookie } from '../utils/cookies'
+import { getUserIdCookie, setSessionCookie, isSessionCookieSet } from '../utils/cookies'
+import { useCountryFromGeoLocation } from '../utils/country'
 
 export default function Home() {
   const [ data, setData ] = React.useState(null)
@@ -14,6 +15,8 @@ export default function Home() {
   const [ error, setError ] = React.useState(null)
   const [ highlightRegions, setHighlightRegions] = React.useState(null)
   const tableContext = React.useContext(DataContext)
+  const [ country, setCountry ] = React.useState(null)
+  useCountryFromGeoLocation(setCountry)
 
   React.useEffect(() => {
     getCovid19Daily()
@@ -28,10 +31,24 @@ export default function Home() {
   }, [])
 
   React.useEffect(() => {
-    if (getCookie() == null) {
+    if (isSessionCookieSet()) {
       return
     }
-    getUser(getCookie())
+    if (country) {
+      setSessionCookie()    // Only display the geo-located graph once per session
+      setRegion(country)
+      if (!getUserIdCookie()) {
+        var highlight = {region: [ country ]}
+        setHighlightRegions(highlight.region)
+      }
+    }
+  }, [country])
+
+  React.useEffect(() => {
+    if (!getUserIdCookie()) {
+      return
+    }
+    getUser(getUserIdCookie())
       .then((currentUser) => {
         if (currentUser !== null) {
           setHighlightRegions(currentUser.regions)
@@ -62,11 +79,11 @@ export default function Home() {
 
       { data && <Table data={data} displayRegion={region} highlightRegions={highlightRegions} /> }
 
-    <ToastContainer
-      hideProgressBar={true}
-      newestOnTop={true}
-      autoClose={4000}
-    />
+      <ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={4000}
+      />
     </>
 
   )

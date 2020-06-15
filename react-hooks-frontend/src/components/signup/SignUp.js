@@ -11,7 +11,7 @@ import Confirm from './Confirm'
 import RegisterUser from './RegisterUser'
 import EditDeleteUser from './EditDeleteUser'
 import LoadUser from './LoadUser'
-import { getCookie } from '../../utils/cookies'
+import { getUserIdCookie } from '../../utils/cookies'
 import { getUser } from '../../utils/api'
 
 const WELCOME_PAGE = 0
@@ -37,11 +37,11 @@ export default function SignUp() {
   const steps = getSteps()
 
   React.useEffect(() => {
-    if (getCookie() == null) {
+    if (getUserIdCookie() == null) {
       setActiveStep(WELCOME_PAGE)
       return
     }
-    getUser(getCookie())
+    getUser(getUserIdCookie())
       .then((currentUser) => {
         if (currentUser !== null) {
           setDetails(currentUser)

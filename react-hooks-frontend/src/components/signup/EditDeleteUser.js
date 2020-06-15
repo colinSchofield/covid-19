@@ -8,7 +8,7 @@ import { MDBIcon, toast } from 'mdbreact'
 import { Modal } from 'react-bootstrap'
 import { useHistory } from "react-router-dom"
 import { deleteUser } from '../../utils/api'
-import { clearCookie } from '../../utils/cookies'
+import { clearUserIdCookie } from '../../utils/cookies'
 
 
 export default function EditDeleteUser({signupDetails, setActiveStep}) {
@@ -28,7 +28,7 @@ export default function EditDeleteUser({signupDetails, setActiveStep}) {
 
     deleteUser(signupDetails.id)
       .then((response) => {
-        clearCookie()
+        clearUserIdCookie()
         window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Your Coronavirus details have been removed. </span>), 800)
         history.push("/")
       })
