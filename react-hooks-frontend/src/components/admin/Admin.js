@@ -3,12 +3,18 @@ import { getUserList } from '../../utils/api'
 import { Spinner } from 'react-bootstrap'
 import UserTable from './UserTable'
 import Error from '../../utils/Error'
+import { ToastContainer } from 'mdbreact'
 
 export default function Admin() {
   const [ data, setData ] = React.useState(null)
   const [ error, setError ] = React.useState(null)
 
   React.useEffect(() => {
+    clearTableData()
+  }, [])
+
+  const clearTableData = () => {
+    setData(null)
     getUserList()
       .then((users) => {
         setData(users)
@@ -17,8 +23,7 @@ export default function Admin() {
         console.log("Error was Caught!", exception)
         setError(exception.message)
       })
-  }, [])
-
+  }
 
   return (
     <>
@@ -27,7 +32,13 @@ export default function Admin() {
       { !data && !error && <p><br/><br/><br/><br/></p> }
       { !data && !error && <Spinner animation="border" variant="success" /> }
 
-      { data && <UserTable data={data} /> }
+      { data && <UserTable data={data} clearTableData={clearTableData} /> }
+
+      <ToastContainer
+        hideProgressBar={true}
+        newestOnTop={true}
+        autoClose={4000}
+      />
     </>
   )
 }

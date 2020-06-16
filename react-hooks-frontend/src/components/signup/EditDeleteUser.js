@@ -11,9 +11,10 @@ import { deleteUser } from '../../utils/api'
 import { clearUserIdCookie } from '../../utils/cookies'
 
 
-export default function EditDeleteUser({signupDetails, setActiveStep}) {
+export default function EditDeleteUser({signupDetails, setActiveStep, returnToAdminTable}) {
   const history = useHistory()
   const [showDialog, setShowDialog] = React.useState(false)
+  const isAdmin = window.location.href.endsWith('/admin.html')
   const DETAILS_PAGE = 1
 
   const handleCloseDialog = () => setShowDialog(false)
@@ -28,9 +29,14 @@ export default function EditDeleteUser({signupDetails, setActiveStep}) {
 
     deleteUser(signupDetails.id)
       .then((response) => {
-        clearUserIdCookie()
-        window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Your Coronavirus details have been removed. </span>), 800)
-        history.push("/")
+        if (isAdmin) {
+          window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Coronavirus details have been removed. </span>), 800)
+          returnToAdminTable()
+        } else {
+          clearUserIdCookie()
+          window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Your Coronavirus details have been removed. </span>), 800)
+          history.push("/")
+        }
       })
   }
 
@@ -44,7 +50,7 @@ export default function EditDeleteUser({signupDetails, setActiveStep}) {
         <Modal.Header closeButton>
           <Modal.Title>Delete Coronavirus details?</Modal.Title>
         </Modal.Header>
-        <Modal.Body>We'll be sorry to see you go..</Modal.Body>
+        <Modal.Body>{ (isAdmin) ? "Remove this user from the community?" : "We'll be sorry to see you go.."}</Modal.Body>
         <Modal.Footer>
           <Button variant="contained" onClick={handleCloseDialog}>
             Cancel
@@ -111,6 +117,7 @@ export default function EditDeleteUser({signupDetails, setActiveStep}) {
       <br/>
       <div>
         <div>
+          { isAdmin && <Button variant="contained" onClick={returnToAdminTable}>Cancel</Button> }
           <Button variant="contained" color="primary" onClick={handleEdit}>Edit</Button>
           <Button variant="contained" color="secondary" onClick={handleDelete}>Delete</Button>
         </div>

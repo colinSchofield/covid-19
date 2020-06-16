@@ -27,7 +27,7 @@ function getSteps() {
   return ['Welcome', 'Details', 'Regions', 'Notification', 'Confirm']
 }
 
-export default function SignUp() {
+export default function SignUp({adminId, returnToAdminTable}) {
   const defaultUserDetails = { id: null, name: "", age: 7, gender: "Male", regions: [], email: "", sms: ""}
   const [details, setDetails] = React.useState(defaultUserDetails)
   const [activeStep, setActiveStep] = React.useState(LOAD_USER)
@@ -37,11 +37,13 @@ export default function SignUp() {
   const steps = getSteps()
 
   React.useEffect(() => {
-    if (getUserIdCookie() == null) {
+    if (!getUserIdCookie() && !adminId) {
       setActiveStep(WELCOME_PAGE)
       return
     }
-    getUser(getUserIdCookie())
+
+    const userId = adminId || getUserIdCookie()
+    getUser(userId)
       .then((currentUser) => {
         if (currentUser !== null) {
           setDetails(currentUser)
@@ -99,9 +101,9 @@ export default function SignUp() {
       case CONFIRM_PAGE:
         return <Confirm signupDetails={details} />
       case REGISTER_USER_PAGE:
-        return <RegisterUser signupDetails={details} />
+        return <RegisterUser signupDetails={details} returnToAdminTable={returnToAdminTable} />
       case EDIT_DELETE_USER:
-        return <EditDeleteUser signupDetails={details} setActiveStep={setActiveStep} />
+        return <EditDeleteUser signupDetails={details} setActiveStep={setActiveStep} returnToAdminTable={returnToAdminTable} />
       case LOAD_USER:
         return <LoadUser />
       default:
@@ -129,6 +131,9 @@ export default function SignUp() {
         { activeStep < REGISTER_USER_PAGE &&
           <div>
             <div>
+              { adminId &&
+                <Button variant="contained" onClick={returnToAdminTable}>Cancel</Button>
+              }
               <Button
                 disabled={activeStep === WELCOME_PAGE}
                 onClick={handleBack}

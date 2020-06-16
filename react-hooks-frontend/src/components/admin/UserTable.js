@@ -1,7 +1,10 @@
 import React from 'react'
 import BootstrapTable from 'react-bootstrap-table-next'
+import SignUp from '../signup/SignUp'
 
-export default function UserTable({data}) {
+export default function UserTable({data, clearTableData}) {
+  const [userId, setUserId] = React.useState(null)
+
   const userColumns = [
         {
           dataField: 'id',
@@ -29,8 +32,6 @@ export default function UserTable({data}) {
           text: 'Regions',
         }
       ]
-  const [detailsView, setDetailsView] = React.useState(false)
-
 
   const defaultSorted = [
     {
@@ -44,24 +45,31 @@ export default function UserTable({data}) {
     hideSelectColumn: true,
     clickToSelect: true,
     onSelect: (row, isSelect, rowIndex, e) => {
-      // TODO Select a row for editing..
+      setUserId(row.id)
     }
   }
 
   return (
       <>
-        <br/>
-        <h4>Signed-Up Users</h4>
-        <BootstrapTable
-            selectRow={ selectRow }
-            bootstrap4
-            keyField="id"
-            data={ data }
-            columns={ userColumns }
-            defaultSorted={ defaultSorted }
-            striped
-            hover
-        />
+        { userId && <SignUp adminId={userId} returnToAdminTable={clearTableData} /> }
+
+        { !userId &&
+          <>
+            <br/>
+            <h4>Signed-Up Users</h4>
+            <p>You may view, edit or delete users from this table.</p>
+            <BootstrapTable
+                selectRow={ selectRow }
+                bootstrap4
+                keyField="id"
+                data={ data }
+                columns={ userColumns }
+                defaultSorted={ defaultSorted }
+                striped
+                condensed
+                hover />
+          </>
+        }
       </>
     )
 }

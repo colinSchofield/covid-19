@@ -1,14 +1,15 @@
 import React from 'react'
 import { MDBIcon, toast } from 'mdbreact'
-import { useHistory } from "react-router-dom"
+import { useHistory } from 'react-router-dom'
 import { createUser, updateUser } from '../../utils/api'
 import { setUserIdCookie } from '../../utils/cookies'
 import { Spinner } from 'react-bootstrap'
 import Error from '../../utils/Error'
 
-export default function RegisterUser({signupDetails}) {
+export default function RegisterUser({signupDetails, returnToAdminTable}) {
   const history = useHistory()
   const [ error, setError ] = React.useState(null)
+  const isAdmin = window.location.href.endsWith('/admin.html')
 
   React.useEffect(() => {
 
@@ -34,10 +35,15 @@ export default function RegisterUser({signupDetails}) {
       } else {
         updateUser(signupDetails)
           .then((response) => {
-            setUserIdCookie(response.id)
-            window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Details were updated {signupDetails.name}! </span>), 800)
-            history.push("/")
 
+            if (isAdmin) {
+              window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Details were updated for {signupDetails.name}. </span>), 800)
+              returnToAdminTable()
+            } else {
+              setUserIdCookie(response.id)
+              window.setTimeout(() => toast.success(<span><MDBIcon far icon="check-circle" /> Details were updated {signupDetails.name}! </span>), 800)
+              history.push("/")
+            }
           })
           .catch((exception) => {
             console.log("Error was Caught!", exception)
