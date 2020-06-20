@@ -25,7 +25,8 @@ export const detectMobileChange = () => {
     {
       dataField: 'country',
       text: 'Country',
-      sort: true
+      sort: true,
+      align: 'left'
     },
     {
       dataField: 'cases.total',
@@ -67,9 +68,10 @@ export const detectMobileChange = () => {
 
   const columnsDesktop = [
     {
-      dataField: 'country',
+      dataField: 'decoratedCountry',
       text: 'Country',
-      sort: true
+      sort: true,
+      align: 'left'
     },
     {
       dataField: 'cases.total',

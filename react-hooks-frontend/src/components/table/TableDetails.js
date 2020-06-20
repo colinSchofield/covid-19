@@ -28,7 +28,7 @@ export default function TableDetails({region}) {
     const country = location.trim()
     return regionsContext.regionsData
                   .filter((region) => region.key === country)
-                  .map((element) => country + " " + element.flag)
+                  .map((element) => element.flag + " " + country)
   }
 
   React.useEffect(() => {
@@ -53,7 +53,7 @@ export default function TableDetails({region}) {
       dataChange.datasets[1].data = tableData.deaths
       setGraphData(dataChange)
 
-      setText(region + " " + tableData.flag)
+      setText(tableData.flag + " " + region)
       setShow(true)
     }
   }, [tableData, region])

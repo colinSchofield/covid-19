@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
 
 @Service
 @CacheConfig(cacheNames = {"rapidApi"})
@@ -54,15 +54,30 @@ public class RapidApiService {
                 .retrieve()
                 .bodyToMono(Daily.class)
                 .map(this::filterOutNonCountryRegions)
+                .map(this::decorateCountry)
                 .log(RapidApiService.class.getName(), Level.FINE);
     }
 
     private Daily filterOutNonCountryRegions(Daily daily) {
-        List<CountryInfo> response = daily.
-                                    getResponse().
-                                    stream().
-                                    filter(region -> !region.getCountry().matches(properties.getExcludeRegion())).
-                                    collect(Collectors.toList());
+        List<CountryInfo> response = daily
+                .getResponse()
+                .stream()
+                .filter(region -> !region.getCountry().matches(properties.getExcludeRegion()))
+                .collect(Collectors.toList());
+        daily.setResponse(response);
+        return daily;
+    }
+
+    private Daily decorateCountry(Daily daily) {
+        List<CountryInfo> response = daily
+                .getResponse()
+                .stream()
+                .map(countryInfo ->
+                {
+                    countryInfo.setDecoratedCountry(flag.getEmojiForCountry(countryInfo.getCountry()) + " " + countryInfo.getCountry());
+                    return countryInfo;
+                })
+                .collect(Collectors.toList());
         daily.setResponse(response);
         return daily;
     }

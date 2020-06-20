@@ -3,6 +3,7 @@ package com.idk.covid19.model.daily;
 public class CountryInfo {
 
     private String country;
+    private String decoratedCountry;
     private Cases cases;
     private Deaths deaths;
     private Tests tests;
@@ -27,6 +28,14 @@ public class CountryInfo {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getDecoratedCountry() {
+        return decoratedCountry;
+    }
+
+    public void setDecoratedCountry(String decoratedCountry) {
+        this.decoratedCountry = decoratedCountry;
     }
 
     public Cases getCases() {
