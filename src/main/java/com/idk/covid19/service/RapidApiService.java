@@ -12,14 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import static java.lang.Math.abs;
@@ -30,12 +28,14 @@ public class RapidApiService {
 
     private static final Logger LOG = LoggerFactory.getLogger(RapidApiService.class);
     private static final SimpleDateFormat LONG_DAY_IN_MONTH = new SimpleDateFormat("d");
+    private static final String RAPID_API_HOST = "x-rapidapi-host";
+    private static final String RAPID_API_KEY = "x-rapidapi-key";
 
     @Autowired
-    private WebClient summaryClient;
+    private RestTemplate summaryClient;
 
     @Autowired
-    private WebClient historyClient;
+    private RestTemplate historyClient;
 
     @Autowired
     private CountryFlagEmojiUtil flag;
@@ -45,17 +45,23 @@ public class RapidApiService {
 
 
     @Cacheable
-    public Mono<Daily> getCovid19DailySummary() {
+    public Daily getCovid19DailySummary() {
 
         LOG.debug("About to obtain Covid-19 daily summary from Rapid API WebService");
-        return summaryClient
-                .get()
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(Daily.class)
-                .map(this::filterOutNonCountryRegions)
-                .map(this::decorateCountry)
-                .log(RapidApiService.class.getName(), Level.FINE);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(RAPID_API_HOST, properties.getRapidApi().getApiHost());
+        headers.add(RAPID_API_KEY, properties.getRapidApi().getApiKey());
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<Daily> responseObj = summaryClient.exchange(properties.getRapidApi().getCovid19Summary(),
+                HttpMethod.GET, entity, Daily.class);
+        if (responseObj.getStatusCode().equals(HttpStatus.OK) && responseObj.getBody() != null) {
+            return decorateCountry(filterOutNonCountryRegions(responseObj.getBody()));
+        } else {
+            LOG.warn("Error reading from WebService");
+            throw new IllegalStateException("Error accessing WebService: " + responseObj.getStatusCodeValue());
+        }
     }
 
     private Daily filterOutNonCountryRegions(Daily daily) {
@@ -83,17 +89,33 @@ public class RapidApiService {
     }
 
     @Cacheable
-    public Mono<TableDetails> getCovid19MonthlyHistory(String region) {
+    public TableDetails getCovid19MonthlyHistory(String region) {
 
         LOG.debug("About to obtain Covid-19 monthly history from Rapid API WebService");
-        return historyClient
-                .get()
-                .uri("?region=" + region)
-                .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
-                .bodyToMono(Weekly.class)
-                .map(weekly -> getCalculateDeltasBetweenDays(weekly, region))
-                .log(RapidApiService.class.getName(), Level.FINE);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(RAPID_API_HOST, properties.getRapidApi().getApiHost2());
+        headers.add(RAPID_API_KEY, properties.getRapidApi().getApiKey());
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<Weekly> responseObj = historyClient.exchange(properties.getRapidApi().getWeeklyHistory() +
+                        "?region=" + region,
+                        HttpMethod.GET,
+                        entity,
+                        Weekly.class);
+
+        LOG.info("responseObj received!");
+        LOG.info("values HttpStatus {}", responseObj.getStatusCodeValue());
+        LOG.info("values body {}", responseObj.getBody());
+        LOG.info("region {}", region);
+
+
+        if (responseObj.getStatusCode().equals(HttpStatus.OK) && responseObj.getBody() != null) {
+            return getCalculateDeltasBetweenDays(responseObj.getBody(), region);
+        } else {
+            LOG.warn("Error reading from WebService");
+            throw new IllegalStateException("Error accessing WebService: " + responseObj.getStatusCodeValue());
+        }
     }
 
     protected TableDetails getCalculateDeltasBetweenDays(Weekly weekly, String region) {

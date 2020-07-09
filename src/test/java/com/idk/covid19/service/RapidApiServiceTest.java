@@ -4,8 +4,8 @@ import com.idk.covid19.model.weekly.DailyHistory;
 import com.idk.covid19.model.weekly.TableDetails;
 import com.idk.covid19.model.weekly.Weekly;
 import com.idk.covid19.util.CountryFlagEmojiUtil;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.text.ParseException;
@@ -14,23 +14,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-class RapidApiServiceTest {
+public class RapidApiServiceTest {
 
     private final static SimpleDateFormat FORMAT_DATE = new SimpleDateFormat("dd-MM-yyyy");
 
     private RapidApiService testService = new RapidApiService();
     private final CountryFlagEmojiUtil flag = new CountryFlagEmojiUtil();
 
-    @BeforeEach
+    @Before
     public void setup() {
         ReflectionTestUtils.setField(testService, "flag", flag);
     }
 
     @Test
-    void oneDailyElementDuringTheWeek() throws ParseException {
+    public void oneDailyElementDuringTheWeek() throws ParseException {
 
         // Given
         Weekly weekly = new Weekly();
@@ -48,15 +48,15 @@ class RapidApiServiceTest {
         TableDetails td = testService.getCalculateDeltasBetweenDays(weekly, "Uk");
 
         // Then
-        assertNotNull(td, "Value returned must not be null");
-        assertTrue(td.getFlag().equals("🇬🇧"), "Flag type is set to be Uk flag");
-        assertTrue(td.getLabels().length == 1 && td.getLabels()[0].equals("6"), "Label must give the day");
-        assertTrue(td.getNewCases().length == 1 && td.getNewCases()[0] == 50, "NewCases must provide a delta");
-        assertTrue(td.getDeaths().length == 1 && td.getDeaths()[0] == 10, "Deaths must provide a delta");
+        assertNotNull( "Value returned must not be null", td);
+        assertTrue( "Flag type is set to be Uk flag", td.getFlag().equals("🇬🇧"));
+        assertTrue( "Label must give the day", td.getLabels().length == 1 && td.getLabels()[0].equals("6"));
+        assertTrue( "NewCases must provide a delta", td.getNewCases().length == 1 && td.getNewCases()[0] == 50);
+        assertTrue( "Deaths must provide a delta", td.getDeaths().length == 1 && td.getDeaths()[0] == 10);
     }
 
     @Test
-    void threeDailyElementDuringTheWeek() throws ParseException {
+    public void threeDailyElementDuringTheWeek() throws ParseException {
 
         // Given
         Weekly weekly = new Weekly();
@@ -78,13 +78,13 @@ class RapidApiServiceTest {
         TableDetails td = testService.getCalculateDeltasBetweenDays(weekly, "Uk");
 
         // Then
-        assertNotNull(td, "Value returned must not be null");
-        assertTrue(td.getFlag().equals("🇬🇧"), "Flag type is set to be Uk flag");
-        assertTrue(td.getLabels().length == 2 && td.getLabels()[0].equals("5") &&
-                td.getLabels()[1].equals("6"), "Label must give the day");
-        assertTrue(td.getNewCases().length == 2 && td.getNewCases()[0] == 40 &&
-                td.getNewCases()[1] == 60, "NewCases must provide a delta");
-        assertTrue(td.getDeaths().length == 2 && td.getDeaths()[0] == 15 &&
-                td.getDeaths()[1] == 5, "Deaths must provide a delta");
+        assertNotNull( "Value returned must not be null", td);
+        assertTrue( "Flag type is set to be Uk flag", td.getFlag().equals("🇬🇧"));
+        assertTrue("Label must give the day",
+                td.getLabels().length == 2 && td.getLabels()[0].equals("5") && td.getLabels()[1].equals("6"));
+        assertTrue("NewCases must provide a delta", td.getNewCases().length == 2 && td.getNewCases()[0] == 40 &&
+                td.getNewCases()[1] == 60);
+        assertTrue("Deaths must provide a delta", td.getDeaths().length == 2 && td.getDeaths()[0] == 15 &&
+                td.getDeaths()[1] == 5);
     }
 }

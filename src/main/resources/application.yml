@@ -9,7 +9,7 @@ server:
 
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
     com.idk: DEBUG
 
 covid19:

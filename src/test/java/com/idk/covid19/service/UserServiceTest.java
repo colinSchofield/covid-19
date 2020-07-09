@@ -5,11 +5,11 @@ import com.idk.covid19.model.db.DecoratedUser;
 import com.idk.covid19.model.db.User;
 import com.idk.covid19.model.db.repository.UserRepository;
 import com.idk.covid19.util.CountryFlagEmojiUtil;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-class UserServiceTest {
+@RunWith(MockitoJUnitRunner.class)
+public class UserServiceTest {
 
     @Autowired
     @InjectMocks
@@ -72,11 +72,11 @@ class UserServiceTest {
         Iterable<User> iterable = Arrays.stream(array).collect(Collectors.toList());
         when(userRepository.findAll()).thenReturn(iterable);
         // When
-        List<DecoratedUser> list =  userService.getListOfAllUsers();
+        List<DecoratedUser> list = userService.getListOfAllUsers();
         //Then
         assertNotNull(list);
         assertEquals(2, list.size());
-        assertTrue(list.contains(dUser1) && list.contains(dUser2), "Contains both decoracted user1 and user2");
+        assertTrue("Contains both decoracted user1 and user2", list.contains(dUser1) && list.contains(dUser2));
     }
 
     @Test
@@ -92,19 +92,17 @@ class UserServiceTest {
         assertEquals(response, result);
     }
 
-    @Test
+    @Test(expected = NotFoundException.class)
     public void testGetUserNotFound() {
         // Given
         final String idNotFound = "666";
         when(userRepository.findById(idNotFound)).thenThrow(NotFoundException.class);
         // When, Then Expect NotFoundException
-        assertThrows(NotFoundException.class, () -> {
-            userService.getUser(idNotFound);
-        });
+        userService.getUser(idNotFound);
     }
 
     @Test
-    void testDeleteValidUser() {
+    public void testDeleteValidUser() {
         // Given
         final String id = "123";
         User response = new User(id, "Anne Smith", 28, "Male", Arrays.asList("Canada"), null, null);
@@ -112,17 +110,15 @@ class UserServiceTest {
         // When
         userService.deleteUser(id);
         // Then  No Exception
-        assertTrue(true, "No Exception is thrown because this is a valid user");
+        assertTrue("No Exception is thrown because this is a valid user", true);
     }
 
-    @Test
-    void testDeleteInvalidUser() {
+    @Test(expected = NotFoundException.class)
+    public void testDeleteInvalidUser() {
         // Given
         final String idNotFound = "666";
         when(userRepository.findById(idNotFound)).thenThrow(NotFoundException.class);
         // When, Then Expect NotFoundException
-        assertThrows(NotFoundException.class, () -> {
-            userService.deleteUser(idNotFound);
-        });
+        userService.deleteUser(idNotFound);
     }
 }

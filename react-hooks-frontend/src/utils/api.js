@@ -1,3 +1,8 @@
+import { getEndPoint } from './config'
+
+// The End Point is dependent on the generated URL of the Lambda API Gateway (i.e. see deploy.sh!)
+const END_POINT = getEndPoint()
+
 const setupHeaders = () => {
 
   const username = "user"
@@ -10,7 +15,7 @@ const setupHeaders = () => {
 
 export const getCovid19Daily = () => {
 
-  const url = "/api/1.0/list/daily"
+  const url = END_POINT + "/api/1.0/list/daily"
 
   return fetch(url, { method: "GET", headers: setupHeaders() })
     .then(response => {
@@ -29,7 +34,7 @@ export const getCovid19Daily = () => {
 
 export const getCovid19Monthly = (region) => {
 
-  const url = "/api/1.0/list/monthly/" + region
+  const url = END_POINT + "/api/1.0/list/monthly/" + region
 
   return fetch(url, { method: "GET", headers: setupHeaders() })
     .then(response => {
@@ -48,7 +53,7 @@ export const getCovid19Monthly = (region) => {
 
 export const getRegions = () => {
 
-  const url = "/api/1.0/list/regions"
+  const url = END_POINT + "/api/1.0/list/regions"
 
   return fetch(url, { method: "GET", headers: setupHeaders() })
     .then(response => {
@@ -67,7 +72,7 @@ export const getRegions = () => {
 
 export const createUser = (jsonBody) => {
 
-  const url = "/api/1.0/user"
+  const url = END_POINT + "/api/1.0/user"
 
   return fetch(url, {
           method: "POST",
@@ -90,7 +95,7 @@ export const createUser = (jsonBody) => {
 
 export const updateUser = (jsonBody) => {
 
-  const url = "/api/1.0/user/" + jsonBody.id
+  const url = END_POINT + "/api/1.0/user/" + jsonBody.id
 
   return fetch(url, {
           method: "PUT",
@@ -112,7 +117,7 @@ export const updateUser = (jsonBody) => {
 }
 
 export const getUser = (userId) => {
-  const url = "/api/1.0/user/" + userId
+  const url = END_POINT + "/api/1.0/user/" + userId
 
   return fetch(url, {
           method: "GET",
@@ -133,7 +138,7 @@ export const getUser = (userId) => {
 }
 
 export const deleteUser = (userId) => {
-  const url = "/api/1.0/user/" + userId
+  const url = END_POINT + "/api/1.0/user/" + userId
 
   return fetch(url, {
           method: "DELETE",
@@ -154,7 +159,7 @@ export const deleteUser = (userId) => {
 }
 
 export const getUserList = () => {
-  const url = "/api/1.0/user/list"
+  const url = END_POINT + "/api/1.0/user/list"
 
   return fetch(url, {
           method: "GET",

@@ -57,7 +57,9 @@ export default function UserTable({data, clearTableData}) {
           <>
             <br/>
             <h4>Signed-Up Users</h4>
-            <p>You may view, edit or delete users from this table.</p>
+            <i>(Usually, <b>Admin access</b> requires some form of authentication, but just this once..)</i>
+            <br/><br/>
+            <p class="font-weight-bold blue-text">You may view, edit or delete users from this table.</p>
             <BootstrapTable
                 selectRow={ selectRow }
                 bootstrap4

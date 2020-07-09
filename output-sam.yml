@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: AWS Serverless Spring Boot 2 API - com.idk::covid19
+Globals:
+  Api:
+    EndpointConfiguration: REGIONAL
+Outputs:
+  Covid19Api:
+    Description: URL for application
+    Export:
+      Name: Covid19Api
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod
+Resources:
+  Covid19Function:
+    Properties:
+      CodeUri: s3://covid19plus/5c54d8b1d2f3ff2a8277a32f2d98cc47
+      Events:
+        GetResource:
+          Properties:
+            Method: any
+            Path: /{proxy+}
+          Type: Api
+      Handler: com.idk.covid19.StreamLambdaHandler::handleRequest
+      MemorySize: 512
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      Runtime: java8
+      Timeout: 40
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31

@@ -275,8 +275,8 @@ public class CountryFlagEmojiUtil {
         emojiRegionMapper.put("Zimbabwe", "🇿🇼", "ZW");
     }
 
-    public Mono<List<Region>> getRegionList() {
-        return Mono.just(emojiRegionMapper.getListOfRegions());
+    public List<Region> getRegionList() {
+        return emojiRegionMapper.getListOfRegions();
     }
 
     public static class CaseInsensitiveMap extends HashMap<String, String> {

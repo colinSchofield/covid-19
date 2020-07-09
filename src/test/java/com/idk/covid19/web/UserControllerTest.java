@@ -5,16 +5,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idk.covid19.configuration.Covid19Properties;
 import com.idk.covid19.model.db.User;
 import com.idk.covid19.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.Arrays;
 
@@ -23,9 +24,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(MockitoExtension.class)
+@RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
-class UserControllerTest {
+public class UserControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -44,7 +45,7 @@ class UserControllerTest {
     private User response = new User(id, "Robert Smith", 36, "Male", Arrays.asList("Australia"), "rob.smith@hotmail.com", null);
     private String jsonAsText;
 
-    @BeforeEach
+    @Before
     public void setup() throws JsonProcessingException {
         jsonAsText = mapper.writeValueAsString(response);
     }
@@ -87,7 +88,7 @@ class UserControllerTest {
                 .andExpect(content().string(jsonAsText));
     }
 
-    @Test
+    @Test(expected = NestedServletException.class)
     public void testWithInvalidUserWithMissingName() throws Exception {
         // Given
         User newUser = new User(null, null, 36, "Male", Arrays.asList("Australia"), "rob.smith@hotmail.com", null);
@@ -99,7 +100,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+    @Test(expected = NestedServletException.class)
     public void testWithInvalidUserWithAgeIsTooYoung() throws Exception {
         // Given
         User newUser = new User(null, "Robert Smith", 0, "Male", Arrays.asList("Australia"), "rob.smith@hotmail.com", null);
@@ -111,7 +112,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+    @Test(expected = NestedServletException.class)
     public void testWithInvalidUserWithAgeIsTooOld() throws Exception {
         // Given
         User newUser = new User(null, "Robert Smith", 101, "Male", Arrays.asList("Australia"), "rob.smith@hotmail.com", null);
@@ -123,7 +124,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+    @Test(expected = NestedServletException.class)
     public void testWithInvalidUserWithNoRegions() throws Exception {
         // Given
         User newUser = new User(null, "Robert Smith", 10, "Male", null, "rob.smith@hotmail.com", null);
@@ -135,7 +136,7 @@ class UserControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
-    @Test
+    @Test(expected = NestedServletException.class)
     public void testWithInvalidUserWithBadEmail() throws Exception {
         // Given
         User newUser = new User(null, "Robert Smith", 10, "Male", Arrays.asList("Australia"), "rob.smith", null);
