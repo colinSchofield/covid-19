@@ -1,6 +1,6 @@
 #!/bin/sh
 # Script used to deploy the Covid-19 application to the AWS Lambda Serverless framework
-# NOTE: You will need to choose a unique 3s bucket name ('covid19plus' is used here)
+# NOTE: You will need to choose a unique s3 bucket name ('covid19plus' is used here)
 
 echo "\n\nAbout to deploy the Lambda application\n\n"
 mvn clean package

@@ -83,7 +83,7 @@ export default function About() {
               <br/>
               <br/>
               <Tooltip title="View source code" placement="right" arrow>
-                <a href="https://github.com/ColinSchofield/covid-19"><Image className='icon-align-bottom' src={GitHubImg} rounded width={80} /></a>
+                <a href="https://github.com/colinSchofield/covid-19/tree/severless-aws-lambda"><Image className='icon-align-bottom' src={GitHubImg} rounded width={80} /></a>
               </Tooltip>
             </MDBCardText>
           </MDBCardBody>
